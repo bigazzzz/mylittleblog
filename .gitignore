@@ -1,2 +1,7 @@
 .idea
+<<<<<<< HEAD
 config.php
+=======
+*.swp
+config.php
+>>>>>>> fa98adf3ca5805fdb1e0ba0e97d2da60d5fc44e9

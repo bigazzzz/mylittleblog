@@ -1,14 +1,13 @@
 <?php
+/*
+ * TODO: Необходимо передавать аргументы
+ */
 namespace App;
 use \App\Exceptions;
 
 class Router 
 {
 	use \App\Singleton;
-
-	const DEFAULT_ACTION = 'Index';
-	private $path;
-	private $args = [];
 
 	public static function startPageController()
 	{
@@ -25,22 +24,30 @@ class Router
 		parse_str(parse_url($url, PHP_URL_QUERY), $args);
 		switch ($path) {
 			case '':
-			case 'index.php':
-				$controller = self::startPageController();
-				$action = self::startPageAction();
-				break;
-			
+            case 'index.php':
+                    if (isset($args['ctrl'])) {
+                        $controller = '\\App\\Controllers\\' . ucfirst($args['ctrl']);
+                        unset($args['ctrl']);
+                        if(isset($args['action'])){
+                            $action = ucfirst($args['action']);
+                            unset($args['action']);
+                        } else {
+                            $action = self::startPageAction();
+                        }
+                    } else {
+                        $controller = self::startPageController();
+                        $action = self::startPageAction();
+                    }
+                break;
+
 			default:
 				$path_array = explode('/',$path);
 				foreach ($path_array as $k=>$v){
 					$path_array[$k] = ucfirst($v);
 				}
-				$controller = '\\App\\Controllers\\' . implode('\\', $path_array);
-				$action = self::DEFAULT_ACTION;
-				if (!class_exists($controller)){
-					$action = array_pop($path_array);
-					$controller = '\\App\\Controllers\\' . implode('\\', $path_array);
-				}
+				$controller = '\\App\\Controllers\\' . array_shift($path_array);
+                $action = array_shift($path_array);
+                $args += $path_array;
 		}
 
 		if (!class_exists($controller)){

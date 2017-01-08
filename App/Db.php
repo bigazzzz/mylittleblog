@@ -42,16 +42,6 @@ class Db
         return [];
     }
 
-    public function queryRaw($sql, $substitutions = array())
-    {
-        $sth = $this->dbh->prepare($sql);
-        $res = $sth->execute($substitutions);
-        if (false !== $res) {
-            return $sth->fetchAll(\PDO::FETCH_ASSOC);
-        }
-        return [];
-    }
-
     public function query_one_element($sql, $class, $substitutions = array())
     {
         try {

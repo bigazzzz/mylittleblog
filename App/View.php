@@ -1,5 +1,7 @@
 <?php
+
 namespace App;
+
 class View
     implements \Countable
 {
@@ -23,6 +25,7 @@ class View
         ob_end_clean();
         return $content;
     }
+
     public function display($template)
     {
         echo $this->render($template);

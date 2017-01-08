@@ -16,7 +16,6 @@ abstract class Model
         );
     }
 
-
     public static function findById($id)
     {
         $db = Db::instance();
@@ -33,6 +32,7 @@ abstract class Model
     {
         return empty($this->id);
     }
+
     public function insert()
     {
         if (!$this->isNew()) {
@@ -66,7 +66,6 @@ abstract class Model
         $values = [];
         $sql = '
             UPDATE ' . static::TABLE . ' SET ';
-
         foreach ($this as $k => $v) {
             $values[':'.$k] = $v;
             if ($k == 'id'){

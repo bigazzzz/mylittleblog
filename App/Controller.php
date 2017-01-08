@@ -9,12 +9,14 @@ abstract class Controller
     {
         $this->view = new View();
     }
+
     public function action($action)
     {
         $methodName = 'action' . $action;
         $this->beforeAction();
         return $this->$methodName();
     }
+
     public static function existsAction($action)
     {
         $methodName = 'action' . $action;

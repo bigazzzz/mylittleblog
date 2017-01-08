@@ -1,6 +1,8 @@
 <?php
+
 namespace App;
-trait GetterSetter 
+
+trait GetterSetter
 {
 	protected $data = [];
     public function __set($k, $v)
@@ -22,6 +24,5 @@ trait GetterSetter
     {
         return count($this->data);
     }
-
 
  }

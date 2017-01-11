@@ -1,15 +1,24 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: biga
- * Date: 11.01.17
- * Time: 1:35
- */
 
 namespace App;
 
 
 class ConfigItem
 {
+
+    public $count=0;
+    public function __construct($data)
+    {
+        $this->data = $data;
+    }
+
+    public function __get($k)
+    {
+        if (is_array($this->data[$k])){
+            return new ConfigItem($this->data[$k]);
+        } else {
+            return $this->data[$k];
+        }
+    }
 
 }

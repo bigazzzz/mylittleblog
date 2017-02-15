@@ -6,7 +6,6 @@ namespace App;
 class ConfigItem
 {
 
-    public $count=0;
     public function __construct($data)
     {
         $this->data = $data;

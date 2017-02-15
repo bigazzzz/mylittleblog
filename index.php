@@ -1,6 +1,7 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 require __DIR__ . '/autoload.php';
+\App\Config::instance()->save();
 
 try {
 	$route = \App\Router::parseUrl($_SERVER['REQUEST_URI']);

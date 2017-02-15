@@ -14,7 +14,7 @@ class Db
     protected function __construct()
     {
         try {
-            $this->dbh = new \PDO('mysql:host=' . \App\Config::instance()->db['host'] . ';dbname=' . \App\Config::instance()->db['dbname'], \App\Config::instance()->db['user'], \App\Config::instance()->db['pass']);
+            $this->dbh = new \PDO('mysql:host=' . \App\Config::instance()->db->host . ';dbname=' . \App\Config::instance()->db['dbname'], \App\Config::instance()->db->user, \App\Config::instance()->db->pass);
             $this->execute('SET NAMES UTF8');
         } catch (\PDOException $e){
             throw new DBException('Ошибка соединения с базой данных');

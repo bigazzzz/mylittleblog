@@ -11,8 +11,7 @@ class Config
     public function __construct($config_file = 'config')
     {
         $this->config_file = $config_file . '.php';
-        include_once $this->config_file;
-        $this->data = new ConfigItem($data);
+        $this->data = new ConfigItem(require $this->config_file);
     }
 
     public function __get($k)
@@ -26,11 +25,13 @@ class Config
 
     public function save()
     {
-        $config_string = "<?php\r\n";
-        foreach ($this->data->data as $k=>$v){
-            $config_string .= "\$data['" . $k . "'] = " . var_export($v, TRUE) . ";\r\n";
-        }
-        return file_put_contents($this->config_file, $config_string);
+        $config_string = var_export($this->data->data, true);
+        $pattern = '/array\s*\((\s*\'.+\'\s*=>\s*\'.*?\'\s*)\)/ims';
+        do {
+            $tmp = $config_string;
+            $config_string = preg_replace($pattern, '[$1]', $tmp);
+        } while ($tmp!=$config_string);
+        return file_put_contents($this->config_file, "<?php\r\n" . 'return ' . $config_string);
     }
 
 }

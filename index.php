@@ -2,7 +2,7 @@
 header('Content-Type: text/html; charset=utf-8');
 require __DIR__ . '/autoload.php';
 
-echo $profile = \App\Config::instance()->profile;
+$profile = \App\Config::instance()->profile;
 
 try {
 	$route = \App\Router::parseUrl($_SERVER['REQUEST_URI']);

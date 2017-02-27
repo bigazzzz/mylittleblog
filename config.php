@@ -1,12 +1,11 @@
 <?php
 return array (
-  'profile' => 'default',
   'site' =>
   array (
     'title' => 'Тестовый бложик',
     'name' => 'ТЕСТ',
     'copyright' => 'biga',
-    'publish_year' => '2017',
+    'publish_year' => '2016',
     'meta' => 
     array (
       'name' => 
@@ -24,5 +23,10 @@ return array (
     'password' => '12345677',
     'dbname' => 'blog',
   ),
+  'twig' =>
+        array (
+            'template_dir' => '/var/www/blog/App/Views/Twig/default',
+            'cache_dir' => '/var/www/blog/Cache/Twig',
+        ),
   'dir' => '',
 );

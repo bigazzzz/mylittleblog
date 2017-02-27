@@ -10,7 +10,6 @@ class View
 
     public function __construct()
     {
-        $this->title = Config::instance()->SITE_NAME;
         $this->main_page = Config::instance()->dir;
     }
 

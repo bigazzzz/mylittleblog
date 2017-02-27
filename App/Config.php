@@ -11,21 +11,21 @@ class Config
     public function __construct($config_file = 'config')
     {
         $this->config_file = $config_file . '.php';
-        $this->config = new ConfigItem(require $this->config_file);
+        $this->data = require $this->config_file;
     }
 
     public function __get($k)
     {
-        if (is_array($this->config->$k)){
-            return new ConfigItem($this->config->$k);
+        if (is_array($this->data[$k])){
+            return new ConfigItem($this->data[$k]);
         } else {
-            return $this->config->$k;
+            return $this->data[$k];
         }
     }
 
     public function save()
     {
-        $config_string = var_export($this->config->data, true);
+        $config_string = var_export($this->data, true);
         $pattern = '/array\s*\((\s*\'.+\'\s*=>\s*\'.*?\'\s*)\)/ims';
         do {
             $tmp = $config_string;

@@ -12,6 +12,7 @@ class Main extends Controller
     }
     protected function actionIndex()
     {
+    	$this->view->site = \App\Config::instance()->site;
         $this->view->display(__DIR__ . '/../Views/main.php');
     }
 }

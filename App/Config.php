@@ -10,7 +10,7 @@ class Config
 
     public function __construct($config_file = 'config')
     {
-        $this->config_file = $config_file . '.php';
+        $this->config_file = '../' . $config_file . '.php';
         $this->data = require $this->config_file;
     }
 

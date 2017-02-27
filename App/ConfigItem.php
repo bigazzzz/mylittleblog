@@ -2,21 +2,22 @@
 
 namespace App;
 
-
 class ConfigItem
 {
 
     public function __construct($data)
     {
-        $this->data = $data;
+        foreach ($data as $k => $v) {
+            $this->$k = $v;
+        }
     }
 
     public function __get($k)
     {
-        if (is_array($this->data[$k])){
-            return new ConfigItem($this->data[$k]);
+        if (is_array($this->$k)){
+            return new ConfigItem($this->$k);
         } else {
-            return $this->data[$k];
+            return $this->$k;
         }
     }
 

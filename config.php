@@ -3,8 +3,10 @@ return array (
   'profile' => 'default',
   'site' => 
   array (
-    'name' => 'Test',
-    'encoding' => 'utf-8',
+    'title' => 'Тестовый бложик',
+    'name' => 'ТЕСТ',
+    'copyright' => 'biga',
+    'publish_year' => '2017',
     'meta' => 
     array (
       'name' => 
@@ -12,10 +14,6 @@ return array (
         'keywords' => 'блог',
         'author' => 'biga',
         'description' => 'Описание сайта',
-      ),
-      'http-equiv' => 
-      array (
-        'Content-Type' => 'text\\html; charset=utf-8',
       ),
     ),
   ),

@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\View, App\Controller;
 
-class Main extends Controller
+class Start extends Controller
 {
 
     protected function beforeAction()
@@ -13,6 +13,7 @@ class Main extends Controller
     protected function actionIndex()
     {
     	$this->view->site = \App\Config::instance()->site;
+        $this->view->articles = \App\Models\Article::getLatest(10);
         $this->view->display('main');
     }
 }

@@ -11,7 +11,7 @@ class Router
 
 	public static function startPageController()
 	{
-		return '\\App\\Controllers\\Main';
+		return '\\App\\Controllers\\Start';
 	}
 	public static function startPageAction()
 	{

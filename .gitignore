@@ -1,6 +1,5 @@
 .idea
 *.tmp.php
 vendor
-!default.config.php
 *.config.php
 profile.php

@@ -1,10 +1,6 @@
-* ЧПУ
-Для nginx в конфиг добавляем
-location / {
-    try_files $uri $uri/ /index.php?$args;
-}
-Для apache в .htaccess
-RewriteEngine on
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php [L,QSA]
+V.0.01
++ Config class
++ View class
++ Simple class
++ Twig class
+Рабочая версия

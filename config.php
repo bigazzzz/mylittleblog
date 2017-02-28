@@ -2,7 +2,7 @@
 return array (
   'site' =>
   array (
-    'title' => 'Тестовый бложик1',
+    'title' => 'Тестовый бложик',
     'name' => 'ТЕСТ',
     'copyright' => 'biga',
     'publish_year' => '2016',

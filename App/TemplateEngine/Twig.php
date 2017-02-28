@@ -2,12 +2,12 @@
 
 namespace App\TemplateEngine;
 
-use \App\GetterSetter;
+use \App\Traits\GetterSetter;
 use \App\Config;
 
 class Twig
+    extends \App\TemplateEngine
 {
-    use GetterSetter;
 
     public function __construct()
     {
@@ -24,11 +24,6 @@ class Twig
     public function render($template)
     {
         return $this->twig->render($template . '.html', $this->data);
-    }
-
-    public function display($template)
-    {
-        echo $this->render($template, $this->data);
     }
 
 }

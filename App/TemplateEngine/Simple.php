@@ -3,18 +3,11 @@
 namespace App\TemplateEngine;
 
 use \App\Config;
-use \App\GetterSetter;
+use \App\Traits\GetterSetter;
 
 class Simple
-    implements \Countable
+    extends \App\TemplateEngine
 {
-
-    use GetterSetter;
-
-    public function __construct()
-    {
-        $this->main_page = Config::instance()->dir;
-    }
 
     public function render($template)
     {
@@ -26,11 +19,6 @@ class Simple
         $content = ob_get_contents();
         ob_end_clean();
         return $content;
-    }
-
-    public function display($template)
-    {
-        echo $this->render($template);
     }
 
 }

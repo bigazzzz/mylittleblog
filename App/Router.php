@@ -1,13 +1,13 @@
 <?php
-/*
- * TODO: Необходимо передавать аргументы
- */
+
 namespace App;
+
 use \App\Exceptions;
+use \App\Traits\Singleton;
 
 class Router 
 {
-	use \App\Singleton;
+	use Singleton;
 
 	public static function startPageController()
 	{

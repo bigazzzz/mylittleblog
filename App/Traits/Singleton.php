@@ -1,5 +1,6 @@
 <?php
-namespace App;
+namespace App\Traits;
+
 trait Singleton
 {
     protected static $instance;

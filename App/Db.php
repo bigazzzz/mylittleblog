@@ -3,6 +3,7 @@
 namespace App;
 
 use \App\Exceptions\DBException;
+use \App\Traits\Singleton;
 
 class Db
 {

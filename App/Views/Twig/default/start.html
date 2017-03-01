@@ -1,0 +1,10 @@
+{{ include('header.html') }}
+{% for article in articles %}
+<article>
+<h1>{{ article.title }}</h1>
+<p>{{ article.intro_text }}</p>
+<a href="/{{ article.id }}">Читать полностью</a>
+</article>
+<br />
+{% endfor %}
+{{ include('footer.html') }}

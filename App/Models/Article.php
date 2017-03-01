@@ -7,10 +7,12 @@ use App\Model;
 class Article extends Model
 {
     const TABLE = 'articles';
-    public $author_id;
+
     public $title;
     public $intro_text;
     public $full_text;
+    public $author_id;
+    public $preview;
 
     public function __get($k)
     {	

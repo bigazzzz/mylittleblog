@@ -12,13 +12,6 @@ if (file_exists(__DIR__ . '/../profile.php')){
 
 require __DIR__ . '/../autoload.php';
 
-$author = new \App\Models\Article();
-$author->title = 'Антон4';
-$author->author_id = 1;
-print_r($author);
-$author->save();
-die();
-
 try {
 	$route = \App\Router::parseUrl($_SERVER['REQUEST_URI']);
 } catch (\App\Exceptions\RouteException $e){

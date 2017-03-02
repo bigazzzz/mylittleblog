@@ -13,6 +13,7 @@ return array (
         'keywords' => 'сайт, мой первый сайт, тест',
         'author' => 'Автор',
         'description' => 'Описание сайта',
+        'viewport' => 'width=device-width, initial-scale=1.0',
       ),
     ),
   ),

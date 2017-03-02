@@ -1,5 +1,7 @@
 .idea
-*.tmp.php
 vendor
+yandex_*.html
+google_*.html
+*.tmp.php
 *.config.php
 profile.php

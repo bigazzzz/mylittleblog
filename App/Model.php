@@ -4,9 +4,6 @@ namespace App;
 
 abstract class Model
 {
-/*
- * TODO прописать в модели создание по дефолту created_at
- */
     const TABLE = '';
 
     public static function findAll()
@@ -51,9 +48,9 @@ abstract class Model
         }
         $sql = '
             INSERT INTO ' . static::TABLE . '
-            (' . implode(',', $columns) . ')
+            (' . implode(',', $columns) . ', created_at)
             VALUES
-            (' . implode(',', array_keys($values)) . ')
+            (' . implode(',', array_keys($values)) . ', NOW())
                     ';
         $db = Db::instance();
         $db->execute($sql, $values);
@@ -103,15 +100,12 @@ abstract class Model
         }
     }
 
-    /*
-     * TODO: не по id должно быть, а по created_at
-     */
     public static function getLatest(int $count)
     {
         $db = Db::instance();
         $res = $db->query(
             'SELECT * FROM ' . static::TABLE
-            . ' ORDER BY id DESC'
+            . ' ORDER BY created_at DESC'
             . ' LIMIT 0,' . $count,
             static::class
         );

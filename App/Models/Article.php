@@ -12,7 +12,7 @@ class Article extends Model
     public $intro_text;
     public $full_text;
     public $author_id;
-    public $preview;
+    public $preview_image;
 
     public function __get($k)
     {	

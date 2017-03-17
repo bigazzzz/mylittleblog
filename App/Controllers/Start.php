@@ -2,7 +2,8 @@
 
 namespace App\Controllers;
 
-use App\View, App\Controller;
+use App\View;
+use App\Controller;
 
 class Start extends Controller
 {
@@ -13,7 +14,7 @@ class Start extends Controller
     protected function actionIndex()
     {
     	$this->view->site = \App\Config::instance()->site;
-        $this->view->articles = \App\Models\Article::getLatest(3);
+        $this->view->articles = \App\Models\Article::getLatest(\App\Config::instance()->articles->count_on_start_page);
         $this->view->display('start');
     }
 }

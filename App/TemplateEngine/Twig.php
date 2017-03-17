@@ -2,7 +2,6 @@
 
 namespace App\TemplateEngine;
 
-use \App\Traits\GetterSetter;
 use \App\Config;
 
 class Twig
@@ -15,10 +14,11 @@ class Twig
         $this->twig = new \Twig_Environment($loader, [
             'cache' => Config::instance()->twig->cache_dir,
             'auto_reload' => true,
-            'strict_variables' => true,
+            'strict_variables' => false,
             'debug' => true,
         ]);
         $this->twig->addExtension(new \Twig_Extension_Debug());
+        $this->twig->getExtension('Twig_Extension_Core')->setDateFormat(Config::instance()->twig->default_date_format);
     }
 
     public function render($template)

@@ -28,5 +28,6 @@ return array (
         array (
             'template_dir' => '/path/to/Twig/Templates',
             'cache_dir' => '/path/to/Twig/Cache',
+            'default_date_format' => ''d.m.Y H:i'
         ),
 );

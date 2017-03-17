@@ -1,12 +1,11 @@
 <?php
 namespace App;
 
-use \App\Traits\Singleton;
 
 class Config
 {
 
-    use Singleton;
+    use \App\Traits\Singleton;
 
     private $config_file;
 

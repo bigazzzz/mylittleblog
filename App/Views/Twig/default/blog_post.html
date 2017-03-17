@@ -1,11 +1,10 @@
 {{ include('header.html') }}
-{% for article in articles %}
 <article>
 <h1>{{ article.title }}</h1>
 <p>{{ article.intro_text }}</p>
+<p>{{ article.full_text }}</p>
 <a href="/blog/post/?id={{ article.id }}">Читать полностью</a>
 <p>Создал <strong>{{ article.author.name }}</strong> {{ article.modified_at|date}}</p>
 </article>
 <br />
-{% endfor %}
 {{ include('footer.html') }}

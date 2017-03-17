@@ -14,7 +14,7 @@ class Twig
         $this->twig = new \Twig_Environment($loader, [
             'cache' => Config::instance()->twig->cache_dir,
             'auto_reload' => true,
-            'strict_variables' => false,
+            'strict_variables' => true,
             'debug' => true,
         ]);
         $this->twig->addExtension(new \Twig_Extension_Debug());

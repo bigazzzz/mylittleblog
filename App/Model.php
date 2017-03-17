@@ -29,6 +29,18 @@ abstract class Model
         return $res;
     }
 
+    public static function findByLinkedId($linkname, $id)
+    {
+        $db = Db::instance();
+        $res = $db->query(
+            'SELECT * FROM ' . static::TABLE
+            . ' WHERE ' . $linkname. '=:id',
+            static::class,
+            array('id' => $id)
+        );
+        return $res;
+    }
+
     public function isNew()
     {
         return empty($this->id);
@@ -123,10 +135,14 @@ abstract class Model
             if (isset($this->{$k . "_id"})){
                 if (static::RELATIONS[$k]['type']=='has_one'){
                     return static::RELATIONS[$k]['model']::findById($this->{$k . "_id"});
-                } else {
-                    return false;
-                }
-            }
+                } 
+            };
+            if (isset($this->id)){
+                if (static::RELATIONS[$k]['type']=='has_many'){
+                    return static::RELATIONS[$k]['model']::findByLinkedId($this->getLinkedId() . "_id", $this->id );
+                } 
+            };
+            return false;
         }
         return NULL;
     }
@@ -134,6 +150,11 @@ abstract class Model
     public function __isset($k)
     {
         return key_exists($k, static::RELATIONS);
+    }
+
+    public function getLinkedId()
+    {
+        return strtolower(preg_replace('#.+\\\#', '', static::class));
     }
 
 }

@@ -27,4 +27,11 @@ class Blog extends Controller
         $this->view->article = \App\Models\Article::findById($_REQUEST['id']);
         $this->view->display('blog_post');
     }
+
+    protected function actionAuthor()
+    {
+        $this->view->author = \App\Models\Author::findById($_REQUEST['id']);
+        $this->view->display('blog_author');
+    }
+
 }

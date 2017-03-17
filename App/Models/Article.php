@@ -7,7 +7,6 @@ use App\Model;
 class Article extends Model
 {
 
-
     const TABLE = 'articles';
     const COLUMNS = [
        'title'   => ['type'=>'string'],

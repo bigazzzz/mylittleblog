@@ -3,7 +3,7 @@
 <h1>{{ article.title }}</h1>
 <p>{{ article.intro_text }}</p>
 <p>{{ article.full_text }}</p>
-<p>Создал <a href="/blog/author/?id={{ author.id }}">{{ article.author.name }}</a> {{ article.modified_at|date}}</p>
+<p>Создал <a href="/blog/author/?id={{ article.author.id }}">{{ article.author.name }}</a> {{ article.modified_at|date}}</p>
 </article>
 <br />
 {{ include('footer.html') }}

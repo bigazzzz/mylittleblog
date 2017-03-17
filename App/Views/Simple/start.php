@@ -1,3 +1,3 @@
 <?php include_once('header.php'); ?>
-Simple Template Engine started normally!
+<p>Simple Template Engine started normally!</p>
 <?php include_once('footer.php'); ?>

@@ -5,6 +5,8 @@ namespace App;
 abstract class Model
 {
     const TABLE = '';
+    const COLUMNS = [];
+    const RELATIONS = [];
 
     public static function findAll()
     {
@@ -113,6 +115,25 @@ abstract class Model
             return [];
         }
         return $res;
+    }
+
+    public function __get($k)
+    {
+        if (key_exists($k, static::RELATIONS)){
+            if (isset($this->{$k . "_id"})){
+                if (static::RELATIONS[$k]['type']=='has_one'){
+                    return static::RELATIONS[$k]['model']::findById($this->{$k . "_id"});
+                } else {
+                    return false;
+                }
+            }
+        }
+        return NULL;
+    }
+
+    public function __isset($k)
+    {
+        return key_exists($k, static::RELATIONS);
     }
 
 }

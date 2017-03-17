@@ -6,24 +6,18 @@ use App\Model;
 
 class Article extends Model
 {
+
+
     const TABLE = 'articles';
-
-    public $title;
-    public $intro_text;
-    public $full_text;
-    public $author_id;
-    public $preview_image;
-
-    public function __get($k)
-    {	
-    	if ($k == 'author'){
-	    	if (isset($this->author_id)){
-	    		return \App\Models\Author::findById($this->author_id);
-	    	} else {
-	    		return false;
-	    	}
-    	}
-    	return NULL;
-    }
-
+    const COLUMNS = [
+       'title'   => ['type'=>'string'],
+       'intro_text' => ['type'=>'string'],
+       'full_text' => ['type'=>'string'],
+       'author_id' => ['type'=>'int'],
+       'preview_image' => ['type'=>'string'],
+    ];
+    const RELATIONS = [
+        'author'=>['type'=>'has_one','model'=>'\App\Models\Author'],
+    ];
+ 
 }

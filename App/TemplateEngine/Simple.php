@@ -3,11 +3,12 @@
 namespace App\TemplateEngine;
 
 use \App\Config;
-use \App\Traits\GetterSetter;
 
 class Simple
     extends \App\TemplateEngine
 {
+
+    use \App\Traits\GetterSetter;
 
     public function render($template)
     {

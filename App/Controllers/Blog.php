@@ -14,7 +14,7 @@ class Blog extends Controller
     }
     protected function actionIndex()
     {
-        $this->view->articles = \App\Models\Article::getLatest(\App\Config::instance()->articles->count_on_start_page);
+        $this->view->posts = \App\Models\Post::getLatest(\App\Config::instance()->posts->count_on_start_page);
         $this->view->display('blog_index');
     }
 
@@ -24,7 +24,7 @@ class Blog extends Controller
     
     protected function actionPost()
     {
-        $this->view->article = \App\Models\Article::findById($_REQUEST['id']);
+        $this->view->post = \App\Models\Post::findById($_REQUEST['id']);
         $this->view->display('blog_post');
     }
 

@@ -11,7 +11,7 @@ class Author extends Model
        'name'   => ['type'=>'string'],
     ];
     const RELATIONS = [
-        'articles'=>['type'=>'has_many','model'=>'\App\Models\Article'],
+        'posts'=>['type'=>'has_many','model'=>'\App\Models\Post'],
     ];
 
 }

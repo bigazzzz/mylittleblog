@@ -1,11 +1,11 @@
 {{ include('header.html') }}
-{% for article in articles %}
-<article>
-<h1>{{ article.title }}</h1>
-<p>{{ article.intro_text }}</p>
-<a href="/blog/post/?id={{ article.id }}">Читать полностью</a>
-<p>Создал <a href="/blog/author/?id={{ article.author.id }}">{{ article.author.name }}</a> {{ article.modified_at|date}}</p>
-</article>
+{% for post in posts %}
+<post>
+<h1>{{ post.title }}</h1>
+<p>{{ post.intro_text }}</p>
+<a href="/blog/post/?id={{ post.id }}">Читать полностью</a>
+<p>Создал <a href="/blog/author/?id={{ post.author.id }}">{{ post.author.name }}</a> {{ post.modified_at|date}}</p>
+</post>
 <br />
 {% endfor %}
 {{ include('footer.html') }}

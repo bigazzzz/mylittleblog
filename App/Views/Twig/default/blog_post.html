@@ -1,9 +1,9 @@
 {{ include('header.html') }}
-<article>
-<h1>{{ article.title }}</h1>
-<p>{{ article.intro_text }}</p>
-<p>{{ article.full_text }}</p>
-<p>Создал <a href="/blog/author/?id={{ article.author.id }}">{{ article.author.name }}</a> {{ article.modified_at|date}}</p>
-</article>
+<post>
+<h1>{{ post.title }}</h1>
+<p>{{ post.intro_text }}</p>
+<p>{{ post.full_text }}</p>
+<p>Создал <a href="/blog/author/?id={{ post.author.id }}">{{ post.author.name }}</a> {{ post.modified_at|date}}</p>
+</post>
 <br />
 {{ include('footer.html') }}

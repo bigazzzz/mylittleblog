@@ -30,7 +30,7 @@ return array (
             'cache_dir' => '/path/to/Twig/Cache',
             'default_date_format' => 'd.m.Y H:i',
         ),
-  'articles' =>
+  'posts' =>
         array (
             'count_on_start_page' => 3,
         ),

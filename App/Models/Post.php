@@ -4,14 +4,14 @@ namespace App\Models;
 
 use App\Model;
 
-class Article extends Model
+class Post extends Model
 {
 
-    const TABLE = 'articles';
+    const TABLE = 'posts';
     const COLUMNS = [
        'title'   => ['type'=>'string'],
-       'intro_text' => ['type'=>'string'],
-       'full_text' => ['type'=>'string'],
+       'intro_text' => ['type'=>'text'],
+       'full_text' => ['type'=>'text'],
        'author_id' => ['type'=>'int'],
        'preview_image' => ['type'=>'string'],
     ];

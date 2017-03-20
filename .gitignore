@@ -3,8 +3,7 @@ vendor
 Public/yandex_*.html
 Public/google_*.html
 *.tmp.php
-Profiles/
-Profiles/profile.php
-Profiles/!Default/
+Profiles/*
+!Profiles/Default/*
 
 

@@ -1,5 +1,5 @@
 <?php
-// TODO вынести повторяющиеся строки
+
 namespace App;
 
 use \App\Exceptions\DBException;

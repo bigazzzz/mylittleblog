@@ -5,12 +5,12 @@ namespace App\Controllers;
 use App\View;
 use App\Controller;
 
-class Blog extends Controller
+class Index extends Controller
 {
 
     protected function beforeAction()
     {
-    	$this->view->site = \App\Config::instance()->site;
+        $this->view->site = \App\Config::instance()->site;
         $this->view->addTemplateDir('/var/www/blog/Modules/Blog/Views/Twig');
     }
     protected function actionIndex()
@@ -23,7 +23,7 @@ class Blog extends Controller
     /*
     TODO переписать систему роутов, чтобы BLOG/POST/id, а не BLOG/POST/?id
      */
-    
+
     protected function actionPost()
     {
         $this->view->post = \Modules\Blog\Models\Post::findById($_REQUEST['id']);

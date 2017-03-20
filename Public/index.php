@@ -1,17 +1,17 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
-
+define ('ROOT_DIR', __DIR__ . '/..');
 /*
  * загружаем профиль
  */
 
-if (file_exists(__DIR__ . '/../Profiles/profile.php')){
-    define('PROFILE', require __DIR__ . '/../Profiles/profile.php');
+if (file_exists(ROOT_DIR . '/Profiles/profile.php')){
+    define('PROFILE', require ROOT_DIR . '/Profiles/profile.php');
 } else {
     define('PROFILE', 'default');
 }
 
-require __DIR__ . '/../autoload.php';
+require ROOT_DIR . '/autoload.php';
 
 try {
 	$route = \App\Router::parseUrl($_SERVER['REQUEST_URI']);

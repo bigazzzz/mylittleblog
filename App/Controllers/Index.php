@@ -12,7 +12,7 @@ class Index extends Controller
     protected function beforeAction()
     {
         $this->view->site = Config::instance()->site;
-        $this->view->addTemplateDir(ROOT_DIR . '/Modules/Views/Blog/' . Config::instance()->settings->template_engine);
+        $this->view->addTemplateDir(ROOT_DIR . '/Modules/Views/Blog/' . Config::instance()->template_engine);
     }
     protected function actionIndex()
     {

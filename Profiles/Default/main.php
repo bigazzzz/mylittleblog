@@ -24,19 +24,12 @@ return array (
     'password' => 'simplepassword',
     'dbname' => 'database',
   ),
-  'twig' =>
-        array (
-            'template_dir' => '/path/to/Twig/Templates',
-            'cache_dir' => '/path/to/Twig/Cache',
-            'default_date_format' => 'd.m.Y H:i',
-        ),
-  'settings' =>
-        array (
-            'template_engine' => 'Twig',
-        ),
   'posts' =>
         array (
             'count_on_start_page' => 3,
         ),
-
+    'template_engine' => 'Twig',
+    'cache_dir' => '/path/to/cache',
+    'template_dir' => '/path/to/main/template',
+    'date_format' => 'd.m.Y H:i',
 );

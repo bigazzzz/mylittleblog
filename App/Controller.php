@@ -7,7 +7,7 @@ abstract class Controller
 
     public function __construct()
     {
-        $template_engine = '\\App\TemplateEngine\\' . \App\Config::instance()->settings->template_engine;
+        $template_engine = '\\App\TemplateEngine\\' . \App\Config::instance()->template_engine;
         $this->view = new $template_engine();
     }
 

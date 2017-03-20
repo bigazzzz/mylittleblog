@@ -10,15 +10,15 @@ class Twig
 
     public function __construct()
     {
-        $this->loader = new \Twig_Loader_Filesystem(Config::instance()->twig->template_dir);
+        $this->loader = new \Twig_Loader_Filesystem(Config::instance()->template_dir . '/Twig');
         $this->twig = new \Twig_Environment($this->loader, [
-            'cache' => Config::instance()->twig->cache_dir,
+            'cache' => Config::instance()->cache_dir . '/Twig',
             'auto_reload' => true,
             'strict_variables' => true,
             'debug' => true,
         ]);
         $this->twig->addExtension(new \Twig_Extension_Debug());
-        $this->twig->getExtension('Twig_Extension_Core')->setDateFormat(Config::instance()->twig->default_date_format);
+        $this->twig->getExtension('Twig_Extension_Core')->setDateFormat(Config::instance()->date_format);
     }
 
     public function addTemplateDir($templateDir)

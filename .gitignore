@@ -4,4 +4,4 @@ yandex_*.html
 google_*.html
 *.tmp.php
 *.config.php
-profile.php
+Profiles/profile.php

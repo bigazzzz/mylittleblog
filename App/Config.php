@@ -9,9 +9,9 @@ class Config
 
     private $config_file;
 
-    public function __construct()
+    public function __construct($config = 'main')
     {
-        $this->config_file = '../' . PROFILE . '.config.php';
+        $this->config_file = '../Profiles/' . ucfirst(PROFILE) . '/' . $config . '.php';
         $this->data = require $this->config_file;
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Blog\Models;
+namespace Modules\Models\Blog;
 
 use App\Model;
 
@@ -11,7 +11,7 @@ class Author extends Model
        'name'   => ['type'=>'string'],
     ];
     const RELATIONS = [
-        'posts'=>['type'=>'has_many','model'=>'Modules\Blog\Models\Post'],
+        'posts'=>['type'=>'has_many','model'=>'Modules\Models\Blog\Post'],
     ];
 
 }

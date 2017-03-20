@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Blog\Models;
+namespace Modules\Models\Blog;
 
 use App\Model;
 
@@ -16,7 +16,7 @@ class Post extends Model
        'preview_image' => ['type'=>'string'],
     ];
     const RELATIONS = [
-        'author'=>['type'=>'has_one','model'=>'\Modules\Blog\Models\Author'],
+        'author'=>['type'=>'has_one','model'=>'\Modules\Models\Blog\Author'],
     ];
  
 }

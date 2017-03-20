@@ -30,6 +30,11 @@ return array (
             'cache_dir' => '/path/to/Twig/Cache',
             'default_date_format' => 'd.m.Y H:i',
         ),
+  'settings' =>
+        array (
+            'template_engine' => 'Twig',
+        ),
+
   'posts' =>
         array (
             'count_on_start_page' => 3,

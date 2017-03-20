@@ -10,8 +10,8 @@ class Twig
 
     public function __construct()
     {
-        $loader = new \Twig_Loader_Filesystem(Config::instance()->twig->template_dir);
-        $this->twig = new \Twig_Environment($loader, [
+        $this->loader = new \Twig_Loader_Filesystem(Config::instance()->twig->template_dir);
+        $this->twig = new \Twig_Environment($this->loader, [
             'cache' => Config::instance()->twig->cache_dir,
             'auto_reload' => true,
             'strict_variables' => true,
@@ -21,6 +21,10 @@ class Twig
         $this->twig->getExtension('Twig_Extension_Core')->setDateFormat(Config::instance()->twig->default_date_format);
     }
 
+    public function addTemplateDir($templateDir)
+    {
+        $this->loader->addPath($templateDir);
+    }
     public function render($template)
     {
         return $this->twig->render($template . '.html', $this->data);

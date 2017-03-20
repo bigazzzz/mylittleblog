@@ -34,7 +34,6 @@ return array (
         array (
             'template_engine' => 'Twig',
         ),
-
   'posts' =>
         array (
             'count_on_start_page' => 3,

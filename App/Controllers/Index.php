@@ -4,18 +4,19 @@ namespace App\Controllers;
 
 use App\View;
 use App\Controller;
+use App\Config;
 
 class Index extends Controller
 {
 
     protected function beforeAction()
     {
-        $this->view->site = \App\Config::instance()->site;
-        $this->view->addTemplateDir(ROOT_DIR . '/Modules/Views/Blog/Twig');
+        $this->view->site = Config::instance()->site;
+        $this->view->addTemplateDir(ROOT_DIR . '/Modules/Views/Blog/' . Config::instance()->settings->template_engine);
     }
     protected function actionIndex()
     {
-        $this->view->posts = \Modules\Models\Blog\Post::getLatest(\App\Config::instance()->posts->count_on_start_page);
+        $this->view->posts = \Modules\Models\Blog\Post::getLatest(Config::instance()->posts->count_on_start_page);
         $this->view->content = $this->view->render('posts');
         $this->view->display('index');
     }

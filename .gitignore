@@ -5,6 +5,5 @@ google_*.html
 *.tmp.php
 *.config.php
 Profiles/profile.php
-!Profiles/Default/
 Profiles/**/*.php
 

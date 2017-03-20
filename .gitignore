@@ -1,9 +1,10 @@
 .idea
 vendor
-yandex_*.html
-google_*.html
+Public/yandex_*.html
+Public/google_*.html
 *.tmp.php
-*.config.php
+Profiles/
 Profiles/profile.php
-Profiles/**/*.php
+Profiles/!Default/
+
 

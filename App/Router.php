@@ -57,7 +57,8 @@ class Router
 		} else {
 			return new Route([
 				'controller' => $controller,
-				'action' => $action
+				'action' => $action,
+				'args' => $args
 			]);
 		}
 

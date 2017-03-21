@@ -5,8 +5,6 @@ namespace App;
 class Config
 {
 
-    use \App\Traits\Singleton;
-
     private $config_file;
 
     public function __construct($config = 'main')

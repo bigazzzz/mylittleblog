@@ -8,10 +8,10 @@ trait Singleton
     protected function __construct()
     {
     }
-    public static function instance()
+    public static function instance($args = NULL)
     {
         if (null === static::$instance) {
-            static::$instance = new static;
+            static::$instance = new static($args);
         }
         return static::$instance;
     }

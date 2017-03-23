@@ -20,13 +20,37 @@ class Router
 
 	public static function get($url)
 	{
-		foreach (\App\Config::instance()->routes as $route => $model) {
-			echo $pattern = preg_replace('#(<.+>)#iU','[^/]+', $route);
-			echo " - ";
-			var_dump(preg_match('#^' . $pattern . '/*$#iU', $url));
-			echo "<br><br>";
+		if (!self::getPattern($url)){
+			throw new Exceptions\RouteException('Нет роута для такого url - ' . $url);
 		};
+		$routePattern = self::getPattern($url);
+		$routePath = \App\Config::instance()->routes->$routePattern;
+		$pattern = '#^' . preg_replace('#(<.+>)#iU','[^/]+', $routePattern) . '/*$#iU';
+		preg_match_all($pattern, $routePattern, $matches);
+		var_dump($matches);
 		die();
+		if (self::getActionFromUrl($url)){
+			$pattern = "#^/(.+)/(.+)\((.+)\)*$#iU";
+			preg_match($pattern, self::getActionFromUrl($url), $matches);
+			$controller = $matches[1];
+			$action = $matches[2];
+			if (isset($matches[3])){
+			}
+			var_dump($matches);die();
+		} else {
+			die();
+		}
+	}
+
+	private static function getPattern($url)
+	{
+		foreach (\App\Config::instance()->routes as $route => $action) {
+			$pattern = '#^' . preg_replace('#(<.+>)#iU','[^/]+', $route) . '/*$#iU';
+			if (preg_match($pattern, $url)){
+				return $route;
+			}
+		};
+		return false;
 	}
 
 	public static function parseUrl($url)

@@ -18,6 +18,17 @@ class Router
 		return 'Index';
 	}
 
+	public static function get($url)
+	{
+		foreach (\App\Config::instance()->routes as $route => $model) {
+			echo $pattern = preg_replace('#(<.+>)#iU','[^/]+', $route);
+			echo " - ";
+			var_dump(preg_match('#^' . $pattern . '/*$#iU', $url));
+			echo "<br><br>";
+		};
+		die();
+	}
+
 	public static function parseUrl($url)
 	{
 		$path = trim(parse_url($url, PHP_URL_PATH), '/');

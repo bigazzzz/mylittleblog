@@ -4,7 +4,6 @@ namespace Modules\Controllers\Blog;
 
 use App\Controller;
 use App\Config;
-use App\Route;
 
 class Index extends \App\Controllers\Main
 {
@@ -16,16 +15,16 @@ class Index extends \App\Controllers\Main
         $this->view->display('index');
     }
 
-    protected function actionPost($id)
+    protected function actionPost($data)
     {
-        $this->view->post = \Modules\Models\Blog\Post::findById($id);
+        $this->view->post = \Modules\Models\Blog\Post::findById($data['id']);
         $this->view->content = $this->view->render('Blog/post');
         $this->view->display('index');
     }
 
-    protected function actionAuthor($id)
+    protected function actionAuthor($data)
     {
-        $this->view->author = \Modules\Models\Blog\Author::findById($id);
+        $this->view->author = \Modules\Models\Blog\Author::findById($data['id']);
         $this->view->content = $this->view->render('Blog/author');
         $this->view->display('index');
     }

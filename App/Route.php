@@ -36,8 +36,8 @@ class Route
 		preg_match($pattern, $routePath, $matches);
 		$controller = $matches[1];
 		$action = $matches[2];
-		if (isset($matches[3])){
-			parse_str(str_replace(',','&',$matches[3]),$args);
+		if (isset($matches[4])){
+			parse_str(str_replace(',','&',$matches[4]),$args);
 		} else {
 			$args = NULL;
 		}

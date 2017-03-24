@@ -25,27 +25,33 @@ class Router
 		};
 		$routePattern = self::getPattern($url);
 		$routePath = \App\Config::instance()->routes->$routePattern;
-		$pattern = '#^' . preg_replace('#(<.+>)#iU','[^/]+', $routePattern) . '/*$#iU';
-		preg_match_all($pattern, $routePattern, $matches);
-		var_dump($matches);
-		die();
-		if (self::getActionFromUrl($url)){
-			$pattern = "#^/(.+)/(.+)\((.+)\)*$#iU";
-			preg_match($pattern, self::getActionFromUrl($url), $matches);
-			$controller = $matches[1];
-			$action = $matches[2];
-			if (isset($matches[3])){
-			}
-			var_dump($matches);die();
-		} else {
-			die();
+		$pattern = '#^' . preg_replace('#(\<.+\>)#iU','([^/]+)', $routePattern) . '/*$#iU';
+		preg_match($pattern, $url, $matches);
+		$i = 1;
+		while (isset($matches[$i])){
+			$routePath = str_replace('<' . $i . '>',$matches[$i], $routePath);
+			$i++;
 		}
+		$pattern = "#^/(.+)/(.+)\((.+)\)*$#iU";
+		preg_match($pattern, $routePath, $matches);
+		$controller = $matches[1];
+		$action = $matches[2];
+		if (isset($matches[3])){
+			parse_str(str_replace(',','&',$matches[3]),$args);
+		} else {
+			$args = NULL;
+		}
+		return new Route([
+			'controller' => $controller,
+			'action' => $action,
+			'args' => $args
+		]);
 	}
 
 	private static function getPattern($url)
 	{
 		foreach (\App\Config::instance()->routes as $route => $action) {
-			$pattern = '#^' . preg_replace('#(<.+>)#iU','[^/]+', $route) . '/*$#iU';
+			$pattern = '#^' . preg_replace('#(\<.+\>)#iU','[^/]+', $route) . '/*$#iU';
 			if (preg_match($pattern, $url)){
 				return $route;
 			}

@@ -4,13 +4,10 @@ namespace Modules\Controllers\Blog;
 
 use App\Controller;
 use App\Config;
+use App\Route;
 
-class Index extends Controller
+class Index extends \App\Controllers\Main
 {
-
-    protected function beforeAction()
-    {
-    }
 
     protected function actionIndex()
     {
@@ -19,16 +16,16 @@ class Index extends Controller
         $this->view->display('index');
     }
 
-    protected function actionPost()
+    protected function actionPost($id)
     {
-        $this->view->post = \Modules\Models\Blog\Post::findById($_REQUEST['id']);
+        $this->view->post = \Modules\Models\Blog\Post::findById($id);
         $this->view->content = $this->view->render('Blog/post');
         $this->view->display('index');
     }
 
-    protected function actionAuthor()
+    protected function actionAuthor($id)
     {
-        $this->view->author = \Modules\Models\Blog\Author::findById($_REQUEST['id']);
+        $this->view->author = \Modules\Models\Blog\Author::findById($id);
         $this->view->content = $this->view->render('Blog/author');
         $this->view->display('index');
     }

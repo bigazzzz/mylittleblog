@@ -32,4 +32,11 @@ return array (
     'cache_dir' => '/path/to/cache',
     'template_dir' => '/path/to/main/template',
     'date_format' => 'd.m.Y H:i',
+  'routes' =>
+  array (
+    '/' => '/Blog/Index',
+    '/post/<1>' => '/Blog/Post(id=<1>)',
+    '/author/<1>' => '/Blog/Author(id=<1>)',
+  ),
+
 );

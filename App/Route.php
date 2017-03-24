@@ -13,7 +13,7 @@ class Route
 
 	function __construct($data)
 	{
-		$this->controller = $data['controller'];
+		$this->controller = '\\Modules\\Controllers\\' . $data['controller'] . '\\Index';
 		$this->action = $data['action'];
 		$this->args = $data['args'];
 	}

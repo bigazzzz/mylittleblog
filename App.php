@@ -14,9 +14,8 @@ class App
 		} catch (\App\Exceptions\RouteException $e){
 			echo "Ошибка роутинга - " . $e->getMessage();
 		}
-		var_dump($this->route);
-//		$controller = new $this->route->controller;
-//		$controller->action($this->route->action);
+		$controller = new $this->route->controller;
+		$controller->action($this->route->action);
 
 	}	
 

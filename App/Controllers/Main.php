@@ -6,7 +6,7 @@ use App\View;
 use App\Controller;
 use App\Config;
 
-class Index extends Controller
+class Main extends Controller
 {
 
     protected function beforeAction()

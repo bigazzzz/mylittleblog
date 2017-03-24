@@ -32,7 +32,7 @@ class Route
 			$routePath = str_replace('<' . $i . '>',$matches[$i], $routePath);
 			$i++;
 		}
-		$pattern = "#^/(.+)/(.+)\((.+)\)*$#iU";
+		$pattern = "#^/(.+)/(.+)(\((.+)\))*$#iU";
 		preg_match($pattern, $routePath, $matches);
 		$controller = $matches[1];
 		$action = $matches[2];

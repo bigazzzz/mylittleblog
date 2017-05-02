@@ -149,18 +149,18 @@ abstract class Model
             return self::count();
         }
         if (key_exists($k, static::RELATIONS)){
-            $id_field = static::RELATIONS[$k]['id_field'] ?? $k . '_id';
-            $field_from_linked_table = static::RELATIONS[$k]['field'] ?? 'id';
-            if (isset($this->{$id_field})){
+            $connected_id = static::RELATIONS[$k]['connected_id'] ?? $k . '_id';
+            $id = static::RELATIONS[$k]['id'] ?? 'id';
+            if (isset($this->{$connected_id})){
                 if (static::RELATIONS[$k]['type']=='has_one'){
-                    return static::RELATIONS[$k]['model']::findByUniqueField($field_from_linked_table, $this->{$id_field});
+                    return static::RELATIONS[$k]['model']::findByUniqueField($id, $this->{$connected_id});
                 }
             };
-            $id_field = static::RELATIONS[$k]['field'] ?? $this->getLinkedId() . '_id';
-            $field_from_linked_table = static::RELATIONS[$k]['field'] ?? 'id';
-            if (isset($this->{$field_from_linked_table})){
+            $connected_id = static::RELATIONS[$k]['field'] ?? $this->getLinkedId() . '_id';
+            $id = static::RELATIONS[$k]['field'] ?? 'id';
+            if (isset($this->{$id})){
                 if (static::RELATIONS[$k]['type']=='has_many'){
-                    return static::RELATIONS[$k]['model']::findByLinkedId($id_field, $this->{$field_from_linked_table} );
+                    return static::RELATIONS[$k]['model']::findByLinkedId($connected_id, $this->{$id} );
                 }
             };
             return false;

@@ -29,9 +29,12 @@ class Index extends \App\Controllers\Main
         $this->view->display('index');
     }
 
-    protected function actionPage($data)
+    protected function actionPostsPage($data)
     {
         $this->view->posts = \Modules\Models\Blog\Post::page(null,$data['page'],Config::instance()->posts->count_on_start_page);
+        $this->view->pagination = new \App\Models\Pagination(\Modules\Models\Blog\Post::count(), Config::instance()->posts->count_on_start_page);
+        $this->view->pagination->current = $data['page'];
+        $this->view->pagination->url = '/posts/page';
         $this->view->content = $this->view->render('Blog/posts');
         $this->view->display('index');
     }

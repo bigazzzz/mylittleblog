@@ -38,6 +38,7 @@ abstract class Model
             static::class,
             array('id' => $id)
         );
+
         return $res;
     }
     public static function findByLinkedId($linkname, $id)
@@ -156,8 +157,8 @@ abstract class Model
                     return static::RELATIONS[$k]['model']::findByUniqueField($id, $this->{$connected_id});
                 }
             };
-            $connected_id = static::RELATIONS[$k]['field'] ?? $this->getLinkedId() . '_id';
-            $id = static::RELATIONS[$k]['field'] ?? 'id';
+            $connected_id = static::RELATIONS[$k]['connected_id'] ?? $this->getLinkedId() . '_id';
+            $id = static::RELATIONS[$k]['id'] ?? 'id';
             if (isset($this->{$id})){
                 if (static::RELATIONS[$k]['type']=='has_many'){
                     return static::RELATIONS[$k]['model']::findByLinkedId($connected_id, $this->{$id} );

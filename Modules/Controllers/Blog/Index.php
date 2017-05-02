@@ -10,7 +10,7 @@ class Index extends \App\Controllers\Main
 
     protected function actionIndex()
     {
-        $this->view->posts = \Modules\Models\Blog\Post::getLatest(Config::instance()->posts->count_on_start_page);
+        $this->view->posts = \Modules\Models\Blog\Post::page(null,1,Config::instance()->posts->count_on_start_page);
         $this->view->content = $this->view->render('Blog/posts');
         $this->view->display('index');
     }
@@ -26,6 +26,13 @@ class Index extends \App\Controllers\Main
     {
         $this->view->author = \Modules\Models\Blog\Author::findById($data['id']);
         $this->view->content = $this->view->render('Blog/author');
+        $this->view->display('index');
+    }
+
+    protected function actionPage($data)
+    {
+        $this->view->posts = \Modules\Models\Blog\Post::page(null,$data['page'],Config::instance()->posts->count_on_start_page);
+        $this->view->content = $this->view->render('Blog/posts');
         $this->view->display('index');
     }
 

@@ -142,20 +142,25 @@ abstract class Model
 
     public function __get($k)
     {
+        /*
+         * TODO переписать findByUniqueField и findByLinkedId под search
+         */
         if ($k == "count"){
             return self::count();
         }
         if (key_exists($k, static::RELATIONS)){
-            $field = static::RELATIONS[$k]['field'] ?? $k . '_id';
-            if (isset($this->{$field})){
+            $id_field = static::RELATIONS[$k]['id_field'] ?? $k . '_id';
+            $field_from_linked_table = static::RELATIONS[$k]['field'] ?? 'id';
+            if (isset($this->{$id_field})){
                 if (static::RELATIONS[$k]['type']=='has_one'){
-                    return static::RELATIONS[$k]['model']::findByUniqueField($field, $this->{$field});
+                    return static::RELATIONS[$k]['model']::findByUniqueField($field_from_linked_table, $this->{$id_field});
                 }
             };
-            $field = static::RELATIONS[$k]['field'] ?? $this->getLinkedId() . "_id";
-            if (isset($this->{$field})){
+            $id_field = static::RELATIONS[$k]['field'] ?? $this->getLinkedId() . '_id';
+            $field_from_linked_table = static::RELATIONS[$k]['field'] ?? 'id';
+            if (isset($this->{$field_from_linked_table})){
                 if (static::RELATIONS[$k]['type']=='has_many'){
-                    return static::RELATIONS[$k]['model']::findByLinkedId($field, $this->{$field} );
+                    return static::RELATIONS[$k]['model']::findByLinkedId($id_field, $this->{$field_from_linked_table} );
                 }
             };
             return false;

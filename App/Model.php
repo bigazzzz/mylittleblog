@@ -142,6 +142,9 @@ abstract class Model
 
     public function __get($k)
     {
+        if ($k == "count"){
+            return self::count();
+        }
         if (key_exists($k, static::RELATIONS)){
             $field = static::RELATIONS[$k]['field'] ?? $k . '_id';
             if (isset($this->{$field})){
@@ -170,18 +173,24 @@ abstract class Model
         return strtolower(preg_replace('#.+\\\#', '', static::class));
     }
 
-    public static function search($data = ['1' => '1'])
+    public static function search($data = ['1' => '1'], int $start = 0, int $limit = 0)
     {
         $db = Db::instance();
         $sql = '
-            SELECT * FROM ' . static::TABLE . ' WHERE ';
-        $values = [];
-        foreach ($data as $k => $v) {
-            $values[':'.$k] = '%' . $v . '%';
-            $sql .= $k . ' LIKE :' . $k;
-            $sql .= ' AND ';
+            SELECT * FROM ' . static::TABLE;
+        if (!is_null($data)){
+            $sql .=  ' WHERE ';
+            $values = [];
+            foreach ($data as $k => $v) {
+                $values[':'.$k] = '%' . $v . '%';
+                $sql .= $k . ' LIKE :' . $k;
+                $sql .= ' AND ';
+            }
+            $sql = substr($sql, 0, -5);
+        };
+        if ($limit>0){
+            $sql .= ' LIMIT ' . $start . ',' . $limit;
         }
-        $sql = substr($sql, 0, -5);
         $res = $db->query(
             $sql,
             static::class,
@@ -198,4 +207,15 @@ abstract class Model
         return self::search($data);
     }
 
+    public static function count()
+    {
+        $db = Db::instance();
+        return (int)$db->count(static::TABLE);
+    }
+ 
+    public static function page($data = ['1' => '1'], int $page=1, int $record_per_page=5)
+    {
+        $start_record = ($page-1)*$record_per_page;
+        return self::search($data, $start_record, $record_per_page);
+    }
 }

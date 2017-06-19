@@ -17,7 +17,7 @@ class Post extends Model
     ];
     const RELATIONS = [
         'author'=>['type'=>'has_one','model'=>'\Modules\Models\Blog\Author'],
-        'tags'=>['type'=>'many_to_many','model'=>'\Modules\Models\Blog\Tag']
+        'tags'=>['type'=>'many_to_many','model'=>'\Modules\Models\Blog\Tag', 'connected_id'=>'tag_id', 'our_id'=>'post_id']
     ];
  
 }

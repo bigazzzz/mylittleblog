@@ -12,6 +12,6 @@ class Tag extends Model
        'name'   => ['type'=>'string'],
     ];
     const RELATIONS = [
-        'posts'=>['type'=>'manyToMany','model'=>'\Modules\Models\Blog\Post','link_from_id'=>'tag_id','link_to_id'=>'post_id']
+        'posts'=>['type'=>'manyToMany','model'=>'\Modules\Models\Blog\Post']
     ];
 }

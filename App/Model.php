@@ -29,46 +29,6 @@ abstract class Model
         return $res;
     }
 
-    public static function find_hasOne($linkname, $id)
-    {
-        $db = Db::instance();
-        $res = $db->query_one_element(
-            'SELECT * FROM ' . static::TABLE
-            . ' WHERE ' . $linkname. '=:id',
-            static::class,
-            array('id' => $id)
-        );
-
-        return $res;
-    }
-    public static function find_hasMany($linkname, $id)
-    {
-        $db = Db::instance();
-        $res = $db->query(
-            'SELECT * FROM ' . static::TABLE
-            . ' WHERE ' . $linkname. '=:id',
-            static::class,
-            array('id' => $id)
-        );
-        return $res;
-    }
-
-    public static function find_manyToMany($link_model, $link_id, $linkname, $id)
-    {
-        $db = Db::instance();
-        $res = $db->query(
-            'SELECT * FROM ' . $link_model::TABLE 
-            . ' AS link_table '
-            . ' LEFT JOIN ' . static::TABLE
-            . ' AS data_table '
-            . ' ON link_table.' . $link_id . '=data_table.id'
-            . ' WHERE link_table.' . $linkname. '=:id',
-            static::class,
-            array('id' => $id)
-        );
-        return $res;
-    }
-
     public function isNew()
     {
         return empty($this->id);
@@ -157,6 +117,47 @@ abstract class Model
         return $res;
     }
 
+    public static function find_hasOne($linkId_name, $id_value)
+    {
+        $db = Db::instance();
+        $res = $db->query_one_element(
+            'SELECT * FROM ' . static::TABLE
+            . ' WHERE ' . $linkId_name. '=:id',
+            static::class,
+            array('id' => $id_value)
+        );
+
+        return $res;
+    }
+
+    public static function find_hasMany($linkId_name, $id_value)
+    {
+        $db = Db::instance();
+        $res = $db->query(
+            'SELECT * FROM ' . static::TABLE
+            . ' WHERE ' . $linkId_name. '=:id',
+            static::class,
+            array('id' => $id_value)
+        );
+        return $res;
+    }
+
+    public static function find_manyToMany($links_model, $linkFrom_name, $linkTo_name, $id, $id_value)
+    {
+        $db = Db::instance();
+        $res = $db->query(
+            'SELECT * FROM ' . $links_model::TABLE
+            . ' AS link_table '
+            . ' LEFT JOIN ' . static::TABLE
+            . ' AS data_table '
+            . ' ON link_table.' . $linkFrom_name . '=data_table.' . $id
+            . ' WHERE link_table.' . $linkTo_name. '=:id',
+            static::class,
+            array('id' => $id_value)
+        );
+        return $res;
+    }
+
     public function __get($k)
     {
 
@@ -170,25 +171,25 @@ abstract class Model
             /*
             @id - имя поля связанно объекта(таблицы)) с данными, по умолчанию id
              */
-            $id = static::RELATIONS[$k]['id'] ?? 'id';
+            $id_name = static::RELATIONS[$k]['id'] ?? 'id';
             /*
             Обработка hasOne
             @link_id - имя поля текущего объекта(таблицы), где находиться ID связанной таблицы. по-умолчанию ИМЯВЫЗЫВАЕМОГОСВОЙСТВА_id
             */
-            $link_id = static::RELATIONS[$k]['link_id'] ?? $k . '_id';
-            if (isset($this->{$link_id})){
+            $linkId_name = static::RELATIONS[$k]['link_id'] ?? $k . '_id';
+            if (isset($this->{$linkId_name})){
                 if (static::RELATIONS[$k]['type']=='hasOne'){
-                    return static::RELATIONS[$k]['model']::find_hasOne($id, $this->{$link_id});
+                    return static::RELATIONS[$k]['model']::find_hasOne($id_name, $this->{$linkId_name});
                 }
             };
             /*
             Обработка hasMany
             @link_id - имя поля связанного объекта(таблицы), где находиться ID записей. по-умолчанию ИМЯТЕКУЩЕГООБЪЕКТАБЕЗNAMESPACEИМАЛЕНЬКИМИБУКВАМИ_id
             */
-            $link_id = static::RELATIONS[$k]['link_id'] ?? $this->getLinkId();
-            if (isset($this->{$id})){
+            $linkId_name = static::RELATIONS[$k]['link_id'] ?? $this->getLinkId();
+            if (isset($this->{$id_name})){
                 if (static::RELATIONS[$k]['type']=='hasMany'){
-                    return static::RELATIONS[$k]['model']::find_hasMany($link_id, $this->{$id} );
+                    return static::RELATIONS[$k]['model']::find_hasMany($linkId_name, $this->{$id_name} );
                 }
             };
             /*
@@ -197,12 +198,12 @@ abstract class Model
             @link_from_id - имя поля в модели(таблице) связей, для текущего объекта, по умолчанию ИМЯТЕКУЩЕГООБЪЕКТАБЕЗNAMESPACEИМАЛЕНЬКИМИБУКВАМИ_id
             @link_to_id - имя поля в модели(таблице) связей, для получаемого объекта, по умолчанию ИМЯВЫЗЫВАЕМОГООБЪЕКТАБЕЗNAMESPACEИМАЛЕНЬКИМИБУКВАМИ_id
              */
-            if (isset($this->id)){
+            if (isset($this->{$id_name})){
                 if (static::RELATIONS[$k]['type']=='manyToMany'){
                     $links_model = static::RELATIONS[$k]['link_model'] ?? $this->getLinksModel($k);
-                    $link_from_id = static::RELATIONS[$k]['link_from_id'] ?? $this->getLinkId();
-                    $link_to_id = static::RELATIONS[$k]['link_to_id'] ?? strtolower(preg_replace('#.+\\\#', '', static::RELATIONS[$k]['model'])) . '_id';
-                    return static::RELATIONS[$k]['model']::find_manyToMany($links_model,$link_to_id, $link_from_id, $this->id);
+                    $linkFrom_name = static::RELATIONS[$k]['link_from_id'] ?? $this->getLinkId();
+                    $linkTo_name = static::RELATIONS[$k]['link_to_id'] ?? strtolower(preg_replace('#.+\\\#', '', static::RELATIONS[$k]['model'])) . '_id';
+                    return static::RELATIONS[$k]['model']::find_manyToMany($links_model,$linkTo_name, $linkFrom_name, $id_name, $this->{$id_name});
                 }
             };
             return false;

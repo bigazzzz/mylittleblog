@@ -53,16 +53,15 @@ abstract class Model
         return $res;
     }
 
-    public static function find_manyToMany($link_model, $connected_id, $linkname, $id)
+    public static function find_manyToMany($link_model, $link_id, $linkname, $id)
     {
-        //SELECT  FROM tags2posts LEFT JOIN tags ON tags2posts.tag_id = tags.id WHERE tags2posts.post_id='11'
         $db = Db::instance();
         $res = $db->query(
             'SELECT * FROM ' . $link_model::TABLE 
             . ' AS link_table '
             . ' LEFT JOIN ' . static::TABLE
             . ' AS data_table '
-            . ' ON link_table.' . $connected_id . '=data_table.id'
+            . ' ON link_table.' . $link_id . '=data_table.id'
             . ' WHERE link_table.' . $linkname. '=:id',
             static::class,
             array('id' => $id)
@@ -160,32 +159,50 @@ abstract class Model
 
     public function __get($k)
     {
-        /*
-         * TODO переписать findByUniqueField и findByLinkedId под search
-         */
+
         if ($k == "count"){
             return self::count();
-        }
+        };
+        /*
+        Обработка связей таблиц
+         */
         if (key_exists($k, static::RELATIONS)){
-            $connected_id = static::RELATIONS[$k]['connected_id'] ?? $k . '_id';
+            /*
+            @id - имя поля связанно объекта(таблицы)) с данными, по умолчанию id
+             */
             $id = static::RELATIONS[$k]['id'] ?? 'id';
-            if (isset($this->{$connected_id})){
+            /*
+            Обработка hasOne
+            @link_id - имя поля текущего объекта(таблицы), где находиться ID связанной таблицы. по-умолчанию ИМЯВЫЗЫВАЕМОГОСВОЙСТВА_id
+            */
+            $link_id = static::RELATIONS[$k]['link_id'] ?? $k . '_id';
+            if (isset($this->{$link_id})){
                 if (static::RELATIONS[$k]['type']=='hasOne'){
-                    return static::RELATIONS[$k]['model']::find_hasOne($id, $this->{$connected_id});
+                    return static::RELATIONS[$k]['model']::find_hasOne($id, $this->{$link_id});
                 }
             };
-            $connected_id = static::RELATIONS[$k]['connected_id'] ?? $this->getLinkedId() . '_id';
-            $id = static::RELATIONS[$k]['id'] ?? 'id';
+            /*
+            Обработка hasMany
+            @link_id - имя поля связанного объекта(таблицы), где находиться ID записей. по-умолчанию ИМЯТЕКУЩЕГООБЪЕКТАБЕЗNAMESPACEИМАЛЕНЬКИМИБУКВАМИ_id
+            */
+            $link_id = static::RELATIONS[$k]['link_id'] ?? $this->getLinkId();
             if (isset($this->{$id})){
                 if (static::RELATIONS[$k]['type']=='hasMany'){
-                    return static::RELATIONS[$k]['model']::find_hasMany($connected_id, $this->{$id} );
+                    return static::RELATIONS[$k]['model']::find_hasMany($link_id, $this->{$id} );
                 }
             };
-            $connected_id = static::RELATIONS[$k]['connected_id'] ?? $this->getLinkedId() . '_id';
-            $id = static::RELATIONS[$k]['our_id'] ?? 'id';
+            /*
+            Обработка manyToMany
+            @links_model = модель(таблица) связей, связующие два объекта. По умолчанию ТЕКУЩАЯМОДЕЛЬ2МОДЕЛЬИЗКОТОРОЙБЕРЕМЗНАЧЕНИЕБЕЗNAMESPACE, если этот класс не существует, то ТЕКУЩАЯМОДЕЛЬБЕЗNAMESPACE2МОДЕЛЬИЗКОТОРОЙБЕРЕМЗНАЧЕНИЕ, если этот класс не существует, то null
+            @link_from_id - имя поля в модели(таблице) связей, для текущего объекта, по умолчанию ИМЯТЕКУЩЕГООБЪЕКТАБЕЗNAMESPACEИМАЛЕНЬКИМИБУКВАМИ_id
+            @link_to_id - имя поля в модели(таблице) связей, для получаемого объекта, по умолчанию ИМЯВЫЗЫВАЕМОГООБЪЕКТАБЕЗNAMESPACEИМАЛЕНЬКИМИБУКВАМИ_id
+             */
             if (isset($this->id)){
                 if (static::RELATIONS[$k]['type']=='manyToMany'){
-                    return static::RELATIONS[$k]['model']::find_manyToMany(static::RELATIONS[$k]['link_model'],static::RELATIONS[$k]['connected_id'], static::RELATIONS[$k]['our_id'], $this->id );
+                    $links_model = static::RELATIONS[$k]['link_model'] ?? $this->getLinksModel($k);
+                    $link_from_id = static::RELATIONS[$k]['link_from_id'] ?? $this->getLinkId();
+                    $link_to_id = static::RELATIONS[$k]['link_to_id'] ?? strtolower(preg_replace('#.+\\\#', '', static::RELATIONS[$k]['model'])) . '_id';
+                    return static::RELATIONS[$k]['model']::find_manyToMany($links_model,$link_to_id, $link_from_id, $this->id);
                 }
             };
             return false;
@@ -198,9 +215,23 @@ abstract class Model
         return key_exists($k, static::RELATIONS);
     }
 
-    public function getLinkedId()
+    public function getLinkId()
     {
-        return strtolower(preg_replace('#.+\\\#', '', static::class));
+        /*
+        возвращает 
+         */
+        return strtolower(preg_replace('#.+\\\#', '', static::class)) . '_id';
+    }
+
+    public function getLinksModel($k)
+    {
+        /*
+        возвращает имя класса без namespace и маленькими буквами + "_id"
+
+         */
+        if (class_exists($links_model = static::class . "2" . preg_replace('#.+\\\#', '', static::RELATIONS[$k]['model']))) return $links_model;
+        if (class_exists($links_model = static::RELATIONS[$k]['model'] . "2" . preg_replace('#.+\\\#', '', static::class))) return $links_model;
+        return null;
     }
 
     public static function search($data = ['1' => '1'], int $start = 0, int $limit = 0)

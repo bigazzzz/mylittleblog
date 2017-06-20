@@ -219,7 +219,7 @@ abstract class Model
     private function getLinkId()
     {
         /*
-        возвращает 
+        возвращает имя класса без namespace и маленькими буквами + "_id"
          */
         return strtolower(preg_replace('#.+\\\#', '', static::class)) . '_id';
     }
@@ -227,12 +227,8 @@ abstract class Model
 
     private function getLinksModel($k)
     {
-        /*
-        возвращает имя класса без namespace и маленькими буквами + "_id"
-
-         */
-        if (class_exists($links_model = static::class . "2" . preg_replace('#.+\\\#', '', static::RELATIONS[$k]['model']))) return $links_model;
-        if (class_exists($links_model = static::RELATIONS[$k]['model'] . "2" . preg_replace('#.+\\\#', '', static::class))) return $links_model;
+        if (class_exists($links_model = static::class . "_to_" . preg_replace('#.+\\\#', '', static::RELATIONS[$k]['model']))) return $links_model;
+        if (class_exists($links_model = static::RELATIONS[$k]['model'] . "_to_" . preg_replace('#.+\\\#', '', static::class))) return $links_model;
         return null;
     }
 

@@ -12,7 +12,7 @@ class Tag extends Model
        'name'   => ['type'=>'string'],
     ];
     const RELATIONS = [
-        'posts'=>['type'=>'many_to_many','model'=>'\Modules\Models\Blog\Post']
+        'posts'=>['type'=>'manyToMany','model'=>'\Modules\Models\Blog\Post', 'connected_id'=>'post_id']
     ];
  
 }

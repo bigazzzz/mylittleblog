@@ -29,7 +29,7 @@ abstract class Model
         return $res;
     }
 
-    public static function findByUniqueField($linkname, $id)
+    public static function find_hasOne($linkname, $id)
     {
         $db = Db::instance();
         $res = $db->query_one_element(
@@ -41,12 +41,29 @@ abstract class Model
 
         return $res;
     }
-    public static function findByLinkedId($linkname, $id)
+    public static function find_hasMany($linkname, $id)
     {
         $db = Db::instance();
         $res = $db->query(
             'SELECT * FROM ' . static::TABLE
             . ' WHERE ' . $linkname. '=:id',
+            static::class,
+            array('id' => $id)
+        );
+        return $res;
+    }
+
+    public static function find_manyToMany($link_model, $connected_id, $linkname, $id)
+    {
+        //SELECT  FROM tags2posts LEFT JOIN tags ON tags2posts.tag_id = tags.id WHERE tags2posts.post_id='11'
+        $db = Db::instance();
+        $res = $db->query(
+            'SELECT * FROM ' . $link_model::TABLE 
+            . ' AS link_table '
+            . ' LEFT JOIN ' . static::TABLE
+            . ' AS data_table '
+            . ' ON link_table.' . $connected_id . '=data_table.id'
+            . ' WHERE link_table.' . $linkname. '=:id',
             static::class,
             array('id' => $id)
         );
@@ -153,15 +170,22 @@ abstract class Model
             $connected_id = static::RELATIONS[$k]['connected_id'] ?? $k . '_id';
             $id = static::RELATIONS[$k]['id'] ?? 'id';
             if (isset($this->{$connected_id})){
-                if (static::RELATIONS[$k]['type']=='has_one'){
-                    return static::RELATIONS[$k]['model']::findByUniqueField($id, $this->{$connected_id});
+                if (static::RELATIONS[$k]['type']=='hasOne'){
+                    return static::RELATIONS[$k]['model']::find_hasOne($id, $this->{$connected_id});
                 }
             };
             $connected_id = static::RELATIONS[$k]['connected_id'] ?? $this->getLinkedId() . '_id';
             $id = static::RELATIONS[$k]['id'] ?? 'id';
             if (isset($this->{$id})){
-                if (static::RELATIONS[$k]['type']=='has_many'){
-                    return static::RELATIONS[$k]['model']::findByLinkedId($connected_id, $this->{$id} );
+                if (static::RELATIONS[$k]['type']=='hasMany'){
+                    return static::RELATIONS[$k]['model']::find_hasMany($connected_id, $this->{$id} );
+                }
+            };
+            $connected_id = static::RELATIONS[$k]['connected_id'] ?? $this->getLinkedId() . '_id';
+            $id = static::RELATIONS[$k]['our_id'] ?? 'id';
+            if (isset($this->id)){
+                if (static::RELATIONS[$k]['type']=='manyToMany'){
+                    return static::RELATIONS[$k]['model']::find_manyToMany(static::RELATIONS[$k]['link_model'],static::RELATIONS[$k]['connected_id'], static::RELATIONS[$k]['our_id'], $this->id );
                 }
             };
             return false;

@@ -11,8 +11,10 @@ class Tag2Post extends Model
        'tag_id'   => ['type'=>'int'],
        'post_id'   => ['type'=>'int'],
     ];
-    const RELATIONS = [
+/*
+     const RELATIONS = [
         'posts'=>['type'=>'belongs_to','model'=>'Modules\Models\Blog\Post', 'connected_id'=>'post_id'],
-        'tags'=>['type'=>'belongs_to','model'=>'Modules\Models\Blog\Tag', 'connected_id'=>'tag_id'],
+        'tags'=>['type'=>'hasMany','model'=>'Modules\Models\Blog\Tag', 'connected_id'=>'id'],
     ];
+*/
 }

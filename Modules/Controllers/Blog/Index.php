@@ -10,9 +10,8 @@ class Index extends \App\Controllers\Main
 
     protected function actionIndex()
     {
-        $this->view->posts = \Modules\Models\Blog\Post::page(null,1,Config::instance()->posts->count_on_start_page);
-        $this->view->content = $this->view->render('Blog/posts');
-        $this->view->display('index');
+        $data['page'] = 1;
+        self::actionPostsPage($data);
     }
 
     protected function actionPost($data)

@@ -117,7 +117,7 @@ abstract class Model
         return $res;
     }
 
-    public static function find_hasOne($linkId_name, $id_value)
+    private static function find_hasOne($linkId_name, $id_value)
     {
         $db = Db::instance();
         $res = $db->query_one_element(
@@ -130,7 +130,7 @@ abstract class Model
         return $res;
     }
 
-    public static function find_hasMany($linkId_name, $id_value)
+    private static function find_hasMany($linkId_name, $id_value)
     {
         $db = Db::instance();
         $res = $db->query(
@@ -142,7 +142,7 @@ abstract class Model
         return $res;
     }
 
-    public static function find_manyToMany($links_model, $linkFrom_name, $linkTo_name, $id, $id_value)
+    private static function find_manyToMany($links_model, $linkFrom_name, $linkTo_name, $id, $id_value)
     {
         $db = Db::instance();
         $res = $db->query(
@@ -216,7 +216,7 @@ abstract class Model
         return key_exists($k, static::RELATIONS);
     }
 
-    public function getLinkId()
+    private function getLinkId()
     {
         /*
         возвращает 
@@ -224,7 +224,8 @@ abstract class Model
         return strtolower(preg_replace('#.+\\\#', '', static::class)) . '_id';
     }
 
-    public function getLinksModel($k)
+
+    private function getLinksModel($k)
     {
         /*
         возвращает имя класса без namespace и маленькими буквами + "_id"

@@ -4,14 +4,14 @@ namespace Modules\Models\Blog;
 
 use App\Model;
 
-class Author extends Model
+class Tag extends Model
 {
-    const TABLE = 'authors';
+
+    const TABLE = 'tags';
     const COLUMNS = [
        'name'   => ['type'=>'string'],
     ];
     const RELATIONS = [
-        'posts'=>['type'=>'hasMany','model'=>'Modules\Models\Blog\Post'],
+        'posts'=>['type'=>'manyToMany','model'=>'\Modules\Models\Blog\Post']
     ];
-
 }

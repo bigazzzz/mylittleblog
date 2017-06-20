@@ -16,7 +16,8 @@ class Post extends Model
        'preview_image' => ['type'=>'string'],
     ];
     const RELATIONS = [
-        'author'=>['type'=>'has_one','model'=>'\Modules\Models\Blog\Author'],
+        'tags'=>['type'=>'manyToMany','model'=>'\Modules\Models\Blog\Tag'],
+        'author'=>['type'=>'hasOne','model'=>'\Modules\Models\Blog\Author']
     ];
  
 }

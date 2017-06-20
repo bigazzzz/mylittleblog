@@ -39,4 +39,11 @@ class Index extends \App\Controllers\Main
         $this->view->display('index');
     }
 
+    protected function actionTag($data)
+    {
+        $this->view->tag = \Modules\Models\Blog\tag::findById($data['id']);
+        $this->view->content = $this->view->render('Blog/tag');
+        $this->view->display('index');
+    }
+
 }

@@ -13,9 +13,17 @@ class Route
 
 	function __construct($data)
 	{
-		$this->controller = '\\Modules\\Controllers\\' . $data['controller'] . '\\Index';
-		$this->action = $data['action'];
-		$this->args = $data['args'];
+        if (class_exists('\\App\\Controllers\\' . $data['controller'])){
+            $this->controller = '\\App\\Controllers\\' . $data['controller'];
+            $this->action = $data['action'];
+            $this->args = $data['args'];
+        } elseif (class_exists('\\Modules\\Controllers\\' . $data['controller'] . '\\Index')){
+            $this->controller = '\\Modules\\Controllers\\' . $data['controller'] . '\\Index';
+            $this->action = $data['action'];
+            $this->args = $data['args'];
+        } else {
+            throw new Exceptions\RouteException('Нет такого контроллера - ' . $data['controller']);
+        }
 	}
 
 	public static function get($url)

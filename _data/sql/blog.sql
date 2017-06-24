@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 21, 2017 at 01:03 AM
+-- Generation Time: Jun 24, 2017 at 04:23 PM
 -- Server version: 5.7.16
 -- PHP Version: 7.1.0
 
@@ -26,6 +26,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `authors`
 --
 
+DROP TABLE IF EXISTS `authors`;
 CREATE TABLE `authors` (
   `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
@@ -47,6 +48,7 @@ INSERT INTO `authors` (`id`, `name`, `modified_at`, `created_at`) VALUES
 -- Table structure for table `posts`
 --
 
+DROP TABLE IF EXISTS `posts`;
 CREATE TABLE `posts` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
@@ -82,6 +84,7 @@ INSERT INTO `posts` (`id`, `title`, `intro_text`, `full_text`, `preview_image`, 
 -- Table structure for table `tags`
 --
 
+DROP TABLE IF EXISTS `tags`;
 CREATE TABLE `tags` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(100) NOT NULL
@@ -103,6 +106,7 @@ INSERT INTO `tags` (`id`, `name`) VALUES
 -- Table structure for table `tags_to_posts`
 --
 
+DROP TABLE IF EXISTS `tags_to_posts`;
 CREATE TABLE `tags_to_posts` (
   `post_id` bigint(20) NOT NULL,
   `tag_id` bigint(20) NOT NULL
@@ -127,6 +131,28 @@ INSERT INTO `tags_to_posts` (`post_id`, `tag_id`) VALUES
 (2, 3),
 (3, 2);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `login` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `login`, `name`, `password`, `modified_at`) VALUES
+(1, 'admin', 'Антон Шатунов', '$2y$10$i.hZBUJlTGQEHUnObK/f4.FRM86hmWJL85tERntRMbzboJoAjfMmy', '2017-06-24 13:22:16');
+
 --
 -- Indexes for dumped tables
 --
@@ -146,6 +172,13 @@ ALTER TABLE `posts`
   ADD UNIQUE KEY `articles_id_uindex` (`id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -159,6 +192,11 @@ ALTER TABLE `authors`
 --
 ALTER TABLE `posts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

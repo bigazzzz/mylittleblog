@@ -1,15 +1,21 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: root
- * Date: 24.06.2017
- * Time: 14:56
- */
 
 namespace App;
 
 
 class Auth
 {
+    const ALGORITM=PASSWORD_DEFAULT;
+
+    public static function hash($password)
+    {
+        return password_hash($password , self::ALGORITM);
+    }
+
+    public static function verify($password, $hash)
+    {
+        return password_verify($password, $hash);
+    }
+
 
 }

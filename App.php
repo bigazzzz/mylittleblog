@@ -15,8 +15,6 @@ class App
 			echo "Ошибка роутинга - " . $e->getMessage();
 		}
 		$controller = new $this->route->controller;
-		$controller->action($this->route->action, $this->route->args);
-
-	}	
-
+		$controller->action($this->route->action, $this->route->args, $this->route->post);
+	}
 }

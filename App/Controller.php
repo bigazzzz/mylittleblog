@@ -11,11 +11,11 @@ abstract class Controller
         $this->view = new $template_engine();
     }
 
-    public function action($action, $args = NULL)
+    public function action($action, $args = NULL, $post = NULL)
     {
         $methodName = 'action' . $action;
         $this->beforeAction();
-        return $this->$methodName($args);
+        return $this->$methodName($args,$post);
     }
 
     public static function existsAction($action)

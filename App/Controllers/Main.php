@@ -24,6 +24,6 @@ class Main extends Controller
 
     protected function actionAuth($data, $post)
     {
-        var_dump($post);
+        var_dump($_SESSION);
     }
 }

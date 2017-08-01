@@ -7,7 +7,6 @@ class Config
 {
 
     use Singleton;
-    
 
     public function __construct()
     {

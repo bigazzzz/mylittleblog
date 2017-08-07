@@ -15,7 +15,7 @@ abstract class Controller
     {
         $methodName = 'action' . $action;
         $this->beforeAction();
-        return $this->$methodName($app->route-args,$app->route->post);
+        return $this->$methodName($app->route->args,$app->route->post);
     }
 
     public static function existsAction($action)

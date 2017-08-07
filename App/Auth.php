@@ -19,11 +19,20 @@ class Auth
     public static function authenticate($login, $password)
     {
     	$where = ['login' => $login];
-    	$user = \App\Models\Users::searchOneElement($where);
-    	var_dump($user);
+    	$user = \App\Models\Users::whereOneElement($where);
     	if (self::verify($password, $user->password)){
-    		return true;
+    		return $user;
     	}
     	return false;
+    }
+
+    public static function user()
+    {
+    	$hash = $_COOKIE[\App\Config::instance()->secret_key] ?? null;
+    	$session = \App\Models\UserSessions::whereOneElement(['hash' => $hash]);
+    	if (!is_null($session)){
+	    	return $session->user;
+    	}
+    	return null;
     }
 }

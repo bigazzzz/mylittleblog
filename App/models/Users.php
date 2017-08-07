@@ -13,6 +13,7 @@ class Users extends Model
        'password'   => ['type'=>'string'],
     ];
     const RELATIONS = [
+    	'sessions'=>['type'=>'hasMany','model'=>'App\Models\UserSessions'],
     ];
 
 }

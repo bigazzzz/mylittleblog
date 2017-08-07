@@ -17,6 +17,7 @@ class App
 		$controller = new $this->route->controller;
 		$this->session = \App\Session::instance();
         $this->config = \App\Config::instance();
+        $this->server = $_SERVER;
 
 		$controller->action($this->route->action, $this);
 	}

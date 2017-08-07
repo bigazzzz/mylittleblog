@@ -39,6 +39,7 @@ abstract class Model
         if (!$this->isNew()) {
             return;
         }
+
         $columns = [];
         $values = [];
         foreach ($this as $k => $v) {
@@ -53,7 +54,7 @@ abstract class Model
             (' . implode(',', $columns) . ', created_at)
             VALUES
             (' . implode(',', array_keys($values)) . ', NOW())
-                    ';
+            ';
         $db = Db::instance();
         $db->execute($sql, $values);
         $this->id = $db->getLastInsertId();
@@ -287,4 +288,41 @@ abstract class Model
             return $res;
         }
     }
+
+    public static function where($data = ['1' => '1'], int $start = 0, int $limit = 0)
+    {
+        $db = Db::instance();
+        $sql = '
+            SELECT * FROM ' . static::TABLE;
+        if (!is_null($data)){
+            $sql .=  ' WHERE ';
+            $values = [];
+            foreach ($data as $k => $v) {
+                $values[':'.$k] = $v;
+                $sql .= $k . ' = :' . $k;
+                $sql .= ' AND ';
+            }
+            $sql = substr($sql, 0, -5);
+        };
+        if ($limit>0){
+            $sql .= ' LIMIT ' . $start . ',' . $limit;
+        }
+        $res = $db->query(
+            $sql,
+            static::class,
+            $values
+        );
+        return $res;
+    }
+
+    public static function whereOneElement($data)
+    {
+        $res = self::where($data);
+        if (is_array($res)){
+            return $res[0];
+        } else {
+            return $res;
+        }
+    }
+
 }

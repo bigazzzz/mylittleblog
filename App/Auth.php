@@ -35,4 +35,33 @@ class Auth
     	}
     	return null;
     }
+
+    public static function logout()
+    {
+    	$hash = $_COOKIE[\App\Config::instance()->secret_key] ?? null;
+    	$session = \App\Models\UserSessions::whereOneElement(['hash' => $hash]);
+    	if (!is_null($session)){
+	    	$session->delete();
+			setcookie(\App\Config::instance()->secret_key, "", time()-10, "/");
+			return true;
+    	}
+    	return false;
+    }
+
+    public static function login($login, $password)
+    {
+		$user = \App\Auth::authenticate($login, $password);
+        if (false === $user){
+            \App\Http::redirectPrevious();
+            return false;
+        }
+        $session = new \App\Models\UserSessions;
+        $session->user_id = $user->id;
+        $session->hash = hash('sha256', microtime(true) . uniqid());
+        setcookie(\App\Config::instance()->secret_key, $session->hash, time()+60*60*24*365, "/");
+        $session->ua = $_SERVER['HTTP_USER_AGENT'];
+        $session->ip = $_SERVER['REMOTE_ADDR'];
+        $session->save();
+
+    }
 }

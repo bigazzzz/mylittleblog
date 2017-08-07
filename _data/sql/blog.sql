@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 07, 2017 at 02:40 PM
+-- Generation Time: Aug 07, 2017 at 03:34 PM
 -- Server version: 5.7.13
 -- PHP Version: 7.0.8
 
@@ -151,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `name`, `password`, `created_at`, `modified_at`) VALUES
-(1, 'admin', 'Антон Шатунов', '$2y$10$i.hZBUJlTGQEHUnObK/f4.FRM86hmWJL85tERntRMbzboJoAjfMmy', NULL, '2017-06-24 13:22:16');
+(1, 'admin', 'Антон Шатунов', '$2y$10$qCmNUAvkR1XixAOEmiSDP.z8M77qZb1K5lxSP1ffj9O.Vesh46.sy', NULL, '2017-06-24 13:22:16');
 
 -- --------------------------------------------------------
 
@@ -167,14 +167,18 @@ CREATE TABLE IF NOT EXISTS `user_sessions` (
   `ip` varchar(15) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user_sessions`
 --
 
 INSERT INTO `user_sessions` (`id`, `user_id`, `hash`, `ua`, `ip`, `created_at`, `modified_at`) VALUES
-(3, 1, '74344a63cd19b52876c47d7e4f5e4b787f9664600649be29a5355de07e8ddd60', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36', '127.0.0.1', '2017-08-07 10:59:08', '2017-08-07 10:59:08');
+(3, 1, 'cc73dfb10c7f117a9fedd1e9d5457c2c7a258dcf47c17f0df73ce6f4982cf14a', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36', '127.0.0.1', '2017-08-07 12:09:25', '2017-08-07 12:09:25'),
+(4, 1, 'a1003b7fcb065dd29f4448d518f590a45c54897cb2b8d8b88ba02c9ceb211016', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36', '127.0.0.1', '2017-08-07 12:12:10', '2017-08-07 12:12:10'),
+(5, 1, 'c4bc0b9bb267fa085fe6b566fcb3ed332c1f17ef0aa3fea3fbe655a014f29e95', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36', '127.0.0.1', '2017-08-07 12:13:18', '2017-08-07 12:13:18'),
+(6, 1, '9a12bcf866110ebb695a6ddee3879c422cb15302c25c3aef39599706081b2aed', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36', '127.0.0.1', '2017-08-07 12:33:38', '2017-08-07 12:33:38'),
+(8, 1, '3a8847fdf1b58a6b711eecdd1f297696b58f038de841532ed28bfe0c6cbd60d8', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36', '127.0.0.1', '2017-08-07 12:34:09', '2017-08-07 12:34:09');
 
 --
 -- Indexes for dumped tables
@@ -231,7 +235,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_sessions`
 --
 ALTER TABLE `user_sessions`
-  MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

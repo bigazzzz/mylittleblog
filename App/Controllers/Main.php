@@ -25,18 +25,14 @@ class Main extends Controller
 
     protected function actionAuth($data, $post)
     {
-        $user = \App\Auth::authenticate($post['login'], $post['password']);
-        if (false === $user){
-            \App\Http::redirectPrevious();
-            return false;
-        }
-        $session = new \App\Models\UserSessions;
-        $session->user_id = $user->id;
-        $session->hash = hash('sha256', microtime(true) . uniqid());
-        setcookie(\App\Config::instance()->secret_key, $session->hash);
-        $session->ua = $_SERVER['HTTP_USER_AGENT'];
-        $session->ip = $_SERVER['REMOTE_ADDR'];
-        $session->save();
+        $session = \App\Auth::login($post['login'], $post['password']);
         \App\Http::redirectPrevious();
     }
+
+    protected function actionLogout()
+    {
+        $session = \App\Auth::logout();
+        \App\Http::redirectPrevious();
+    }
+
 }

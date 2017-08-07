@@ -2,7 +2,6 @@
 
 namespace App;
 
-
 class Auth
 {
     const ALGORITM=PASSWORD_DEFAULT;
@@ -17,5 +16,14 @@ class Auth
         return password_verify($password, $hash);
     }
 
-
+    public static function authenticate($login, $password)
+    {
+    	$where = ['login' => $login];
+    	$user = \App\Models\Users::searchOneElement($where);
+    	var_dump($user);
+    	if (self::verify($password, $user->password)){
+    		return true;
+    	}
+    	return false;
+    }
 }

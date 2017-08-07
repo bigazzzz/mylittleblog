@@ -24,6 +24,6 @@ class Main extends Controller
 
     protected function actionAuth($data, $post)
     {
-        var_dump($_SESSION);
+        var_dump(\App\Auth::authenticate($post['login'], $post['password']));
     }
 }

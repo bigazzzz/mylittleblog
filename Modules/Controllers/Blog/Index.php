@@ -23,7 +23,7 @@ class Index extends \App\Controllers\Main
 
     protected function actionAuthor($data)
     {
-        $this->view->author = \App\Models\User::findById($data['id']);
+        $this->view->user = \App\Models\User::findById($data['id']);
         $this->view->content = $this->view->render('Blog/author');
         $this->view->display('index');
     }

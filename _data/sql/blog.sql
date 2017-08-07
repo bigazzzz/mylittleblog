@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 07, 2017 at 03:34 PM
+-- Generation Time: Aug 07, 2017 at 05:07 PM
 -- Server version: 5.7.13
 -- PHP Version: 7.0.8
 
@@ -23,27 +23,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `authors`
---
-
-CREATE TABLE IF NOT EXISTS `authors` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `authors`
---
-
-INSERT INTO `authors` (`id`, `name`, `created_at`, `modified_at`) VALUES
-(1, 'biga', NULL, '2017-03-02 16:37:04'),
-(2, 'FuckYou!', NULL, '2017-03-02 17:01:25');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `posts`
 --
 
@@ -53,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `intro_text` text,
   `full_text` text,
   `preview_image` varchar(255) DEFAULT NULL,
-  `author_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
@@ -62,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
 -- Dumping data for table `posts`
 --
 
-INSERT INTO `posts` (`id`, `title`, `intro_text`, `full_text`, `preview_image`, `author_id`, `created_at`, `modified_at`) VALUES
+INSERT INTO `posts` (`id`, `title`, `intro_text`, `full_text`, `preview_image`, `user_id`, `created_at`, `modified_at`) VALUES
 (1, 'Название1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id orci elementum, euismod lacus vitae, pellentesque erat. Nulla tempor ligula orci, sed dictum turpis egestas et. Integer in lacus sollicitudin, luctus mauris vel, molestie nibh. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam non nibh tortor. Pellentesque sit amet mauris sed elit vulputate suscipit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris sed eleifend augue, non faucibus massa. Maecenas hendrerit ex in nisi eleifend vehicula. Morbi sollicitudin, erat vel faucibus placerat, ligula dolor aliquet urna, sed semper turpis lacus id nisi. Aliquam accumsan porttitor elit, et molestie tortor dignissim ac. Aenean elementum massa quis massa sodales varius. Duis pulvinar, orci nec ultrices consectetur, turpis libero condimentum eros, in venenatis orci ligula sit amet velit. Ut lobortis sapien at justo tempor fringilla.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id orci elementum, euismod lacus vitae, pellentesque erat. Nulla tempor ligula orci, sed dictum turpis egestas et. Integer in lacus sollicitudin, luctus mauris vel, molestie nibh. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam non nibh tortor. Pellentesque sit amet mauris sed elit vulputate suscipit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris sed eleifend augue, non faucibus massa. Maecenas hendrerit ex in nisi eleifend vehicula. Morbi sollicitudin, erat vel faucibus placerat, ligula dolor aliquet urna, sed semper turpis lacus id nisi. Aliquam accumsan porttitor elit, et molestie tortor dignissim ac. Aenean elementum massa quis massa sodales varius. Duis pulvinar, orci nec ultrices consectetur, turpis libero condimentum eros, in venenatis orci ligula sit amet velit. Ut lobortis sapien at justo tempor fringilla.\n\nSed sit amet elit sit amet massa ultricies fringilla eget feugiat ligula. Curabitur mauris augue, bibendum ac magna ut, lacinia aliquam nunc. Etiam libero felis, tincidunt sed convallis a, eleifend id justo. Nunc interdum sapien quis vestibulum fermentum. Morbi ornare quam at pulvinar interdum. Etiam vel congue dolor, a efficitur neque. Morbi at velit a mi consequat fringilla sed a sem. Nunc in dolor augue. Suspendisse finibus efficitur laoreet. Phasellus lacinia purus a orci cursus, accumsan volutpat diam bibendum.\n\nNam maximus hendrerit imperdiet. Aliquam erat volutpat. Proin a neque libero. Ut a quam iaculis, lobortis quam et, ullamcorper libero. Vestibulum non eleifend elit, sit amet commodo augue. Vestibulum auctor nunc et ipsum condimentum, in semper urna pulvinar. Morbi ut porttitor metus, non vestibulum mauris. Fusce consequat nibh ornare justo sagittis, vitae tempor nunc convallis. Nam eget ornare ipsum, eget facilisis dui. Nunc vel rutrum arcu. Ut vel magna lacinia tellus sagittis aliquam vel id lorem. Proin orci quam, ultrices nec placerat pharetra, ultricies eget turpis. Integer et arcu ipsum. In convallis, orci in placerat accumsan, ligula est eleifend justo, maximus sodales nulla augue non ante. Suspendisse potenti. Nunc vehicula nibh sed dolor lobortis ullamcorper.\n\nMorbi vitae purus tristique, pulvinar nisl et, accumsan augue. Donec nisi odio, iaculis ut turpis id, condimentum tincidunt nulla. Nulla commodo nisl convallis velit mattis, at viverra tellus sodales. Pellentesque blandit lacus ac egestas porta. Aliquam sed facilisis massa. Nunc sed hendrerit velit, nec condimentum urna. Sed nec rutrum augue. Proin sollicitudin sapien eu nibh tristique faucibus. Donec a lorem magna.\n\nNulla massa turpis, faucibus at interdum eget, porta eu lectus. Praesent consequat volutpat ipsum, non sollicitudin libero scelerisque et. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc in viverra massa. In velit sapien, mattis ut diam at, ultrices sollicitudin nulla. Donec vel ullamcorper ipsum. Nullam nec elit vel risus tincidunt bibendum sed eu eros. Praesent nulla est, varius sit amet ex eu, egestas aliquet odio. Sed feugiat quam eu mi interdum, eget imperdiet quam pretium. Suspendisse rhoncus, turpis sit amet feugiat lobortis, lacus dui blandit libero, in porta leo velit in lacus.', 'preview.png', 1, NULL, '2017-03-02 16:36:37'),
 (2, 'Ваш шедевр готов!', 'Повседневная практика показывает, что новая модель организационной деятельности требуют от нас анализа позиций, занимаемых участниками в отношении поставленных задач. Равным образом новая модель организационной деятельности в значительной степени обуславливает создание системы обучения кадров, соответствует насущным потребностям. Задача организации, в особенности же новая модель организационной деятельности в значительной степени обуславливает создание системы обучения кадров, соответствует насущным потребностям. С другой стороны укрепление и развитие структуры позволяет оценить значение дальнейших направлений развития. Разнообразный и богатый опыт рамки и место обучения кадров требуют от нас анализа существенных финансовых и административных условий. Товарищи! реализация намеченных плановых заданий представляет собой интересный эксперимент проверки новых предложений.', 'Задача организации, в особенности же начало повседневной работы по формированию позиции способствует подготовки и реализации модели развития. Задача организации, в особенности же консультация с широким активом влечет за собой процесс внедрения и модернизации направлений прогрессивного развития. Задача организации, в особенности же дальнейшее развитие различных форм деятельности требуют от нас анализа системы обучения кадров, соответствует насущным потребностям.\n\nПовседневная практика показывает, что постоянное информационно-пропагандистское обеспечение нашей деятельности требуют определения и уточнения системы обучения кадров, соответствует насущным потребностям. Товарищи! новая модель организационной деятельности способствует подготовки и реализации дальнейших направлений развития.\n\nТоварищи! постоянное информационно-пропагандистское обеспечение нашей деятельности в значительной степени обуславливает создание модели развития. Задача организации, в особенности же сложившаяся структура организации требуют от нас анализа дальнейших направлений развития. Равным образом постоянное информационно-пропагандистское обеспечение нашей деятельности позволяет оценить значение направлений прогрессивного развития.\n\nИдейные соображения высшего порядка, а также укрепление и развитие структуры требуют от нас анализа соответствующий условий активизации. Повседневная практика показывает, что консультация с широким активом требуют от нас анализа новых предложений. Разнообразный и богатый опыт начало повседневной работы по формированию позиции в значительной степени обуславливает создание соответствующий условий активизации. Повседневная практика показывает, что постоянное информационно-пропагандистское обеспечение нашей деятельности представляет собой интересный эксперимент проверки новых предложений. Равным образом рамки и место обучения кадров требуют определения и уточнения дальнейших направлений развития.', 'preview2.png', 1, NULL, '2017-03-02 16:36:37'),
 (3, 'Название2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id orci elementum, euismod lacus vitae, pellentesque erat. Nulla tempor ligula orci, sed dictum turpis egestas et. Integer in lacus sollicitudin, luctus mauris vel, molestie nibh. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam non nibh tortor. Pellentesque sit amet mauris sed elit vulputate suscipit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris sed eleifend augue, non faucibus massa. Maecenas hendrerit ex in nisi eleifend vehicula. Morbi sollicitudin, erat vel faucibus placerat, ligula dolor aliquet urna, sed semper turpis lacus id nisi. Aliquam accumsan porttitor elit, et molestie tortor dignissim ac. Aenean elementum massa quis massa sodales varius. Duis pulvinar, orci nec ultrices consectetur, turpis libero condimentum eros, in venenatis orci ligula sit amet velit. Ut lobortis sapien at justo tempor fringilla.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id orci elementum, euismod lacus vitae, pellentesque erat. Nulla tempor ligula orci, sed dictum turpis egestas et. Integer in lacus sollicitudin, luctus mauris vel, molestie nibh. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam non nibh tortor. Pellentesque sit amet mauris sed elit vulputate suscipit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris sed eleifend augue, non faucibus massa. Maecenas hendrerit ex in nisi eleifend vehicula. Morbi sollicitudin, erat vel faucibus placerat, ligula dolor aliquet urna, sed semper turpis lacus id nisi. Aliquam accumsan porttitor elit, et molestie tortor dignissim ac. Aenean elementum massa quis massa sodales varius. Duis pulvinar, orci nec ultrices consectetur, turpis libero condimentum eros, in venenatis orci ligula sit amet velit. Ut lobortis sapien at justo tempor fringilla.\n\nSed sit amet elit sit amet massa ultricies fringilla eget feugiat ligula. Curabitur mauris augue, bibendum ac magna ut, lacinia aliquam nunc. Etiam libero felis, tincidunt sed convallis a, eleifend id justo. Nunc interdum sapien quis vestibulum fermentum. Morbi ornare quam at pulvinar interdum. Etiam vel congue dolor, a efficitur neque. Morbi at velit a mi consequat fringilla sed a sem. Nunc in dolor augue. Suspendisse finibus efficitur laoreet. Phasellus lacinia purus a orci cursus, accumsan volutpat diam bibendum.\n\nNam maximus hendrerit imperdiet. Aliquam erat volutpat. Proin a neque libero. Ut a quam iaculis, lobortis quam et, ullamcorper libero. Vestibulum non eleifend elit, sit amet commodo augue. Vestibulum auctor nunc et ipsum condimentum, in semper urna pulvinar. Morbi ut porttitor metus, non vestibulum mauris. Fusce consequat nibh ornare justo sagittis, vitae tempor nunc convallis. Nam eget ornare ipsum, eget facilisis dui. Nunc vel rutrum arcu. Ut vel magna lacinia tellus sagittis aliquam vel id lorem. Proin orci quam, ultrices nec placerat pharetra, ultricies eget turpis. Integer et arcu ipsum. In convallis, orci in placerat accumsan, ligula est eleifend justo, maximus sodales nulla augue non ante. Suspendisse potenti. Nunc vehicula nibh sed dolor lobortis ullamcorper.\n\nMorbi vitae purus tristique, pulvinar nisl et, accumsan augue. Donec nisi odio, iaculis ut turpis id, condimentum tincidunt nulla. Nulla commodo nisl convallis velit mattis, at viverra tellus sodales. Pellentesque blandit lacus ac egestas porta. Aliquam sed facilisis massa. Nunc sed hendrerit velit, nec condimentum urna. Sed nec rutrum augue. Proin sollicitudin sapien eu nibh tristique faucibus. Donec a lorem magna.\n\nNulla massa turpis, faucibus at interdum eget, porta eu lectus. Praesent consequat volutpat ipsum, non sollicitudin libero scelerisque et. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc in viverra massa. In velit sapien, mattis ut diam at, ultrices sollicitudin nulla. Donec vel ullamcorper ipsum. Nullam nec elit vel risus tincidunt bibendum sed eu eros. Praesent nulla est, varius sit amet ex eu, egestas aliquet odio. Sed feugiat quam eu mi interdum, eget imperdiet quam pretium. Suspendisse rhoncus, turpis sit amet feugiat lobortis, lacus dui blandit libero, in porta leo velit in lacus.', 'preview.png', 1, NULL, '2017-03-02 16:36:37'),
@@ -144,14 +123,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `login`, `name`, `password`, `created_at`, `modified_at`) VALUES
-(1, 'admin', 'Антон Шатунов', '$2y$10$qCmNUAvkR1XixAOEmiSDP.z8M77qZb1K5lxSP1ffj9O.Vesh46.sy', NULL, '2017-06-24 13:22:16');
+(1, 'admin', 'Антон Шатунов', '$2y$10$qCmNUAvkR1XixAOEmiSDP.z8M77qZb1K5lxSP1ffj9O.Vesh46.sy', NULL, '2017-06-24 13:22:16'),
+(2, 'another', 'Другой Админ', 'йцуйцуйц', NULL, '2017-08-07 13:57:23');
 
 -- --------------------------------------------------------
 
@@ -167,29 +147,11 @@ CREATE TABLE IF NOT EXISTS `user_sessions` (
   `ip` varchar(15) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `user_sessions`
---
-
-INSERT INTO `user_sessions` (`id`, `user_id`, `hash`, `ua`, `ip`, `created_at`, `modified_at`) VALUES
-(3, 1, 'cc73dfb10c7f117a9fedd1e9d5457c2c7a258dcf47c17f0df73ce6f4982cf14a', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36', '127.0.0.1', '2017-08-07 12:09:25', '2017-08-07 12:09:25'),
-(4, 1, 'a1003b7fcb065dd29f4448d518f590a45c54897cb2b8d8b88ba02c9ceb211016', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36', '127.0.0.1', '2017-08-07 12:12:10', '2017-08-07 12:12:10'),
-(5, 1, 'c4bc0b9bb267fa085fe6b566fcb3ed332c1f17ef0aa3fea3fbe655a014f29e95', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36', '127.0.0.1', '2017-08-07 12:13:18', '2017-08-07 12:13:18'),
-(6, 1, '9a12bcf866110ebb695a6ddee3879c422cb15302c25c3aef39599706081b2aed', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36', '127.0.0.1', '2017-08-07 12:33:38', '2017-08-07 12:33:38'),
-(8, 1, '3a8847fdf1b58a6b711eecdd1f297696b58f038de841532ed28bfe0c6cbd60d8', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36', '127.0.0.1', '2017-08-07 12:34:09', '2017-08-07 12:34:09');
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `authors`
---
-ALTER TABLE `authors`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `authors_id_uindex` (`id`);
 
 --
 -- Indexes for table `posts`
@@ -217,11 +179,6 @@ ALTER TABLE `user_sessions`
 --
 
 --
--- AUTO_INCREMENT for table `authors`
---
-ALTER TABLE `authors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
@@ -230,12 +187,12 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user_sessions`
 --
 ALTER TABLE `user_sessions`
-  MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

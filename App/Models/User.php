@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Model;
 
-class Users extends Model
+class User extends Model
 {
     const TABLE = 'users';
     const COLUMNS = [
@@ -14,6 +14,7 @@ class Users extends Model
     ];
     const RELATIONS = [
     	'sessions'=>['type'=>'hasMany','model'=>'App\Models\UserSessions'],
+    	'posts'=>['type'=>'hasMany','model'=>'\Modules\Models\Blog\Post'],
     ];
 
 }

@@ -12,12 +12,12 @@ class Post extends Model
        'title'   => ['type'=>'string'],
        'intro_text' => ['type'=>'text'],
        'full_text' => ['type'=>'text'],
-       'author_id' => ['type'=>'int'],
+       'user_id' => ['type'=>'int'],
        'preview_image' => ['type'=>'string'],
     ];
     const RELATIONS = [
         'tags'=>['type'=>'manyToMany','model'=>'\Modules\Models\Blog\Tag'],
-        'author'=>['type'=>'hasOne','model'=>'\Modules\Models\Blog\Author']
+        'user'=>['type'=>'hasOne','model'=>'\App\Models\User']
     ];
  
 }

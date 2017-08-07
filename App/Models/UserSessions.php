@@ -14,7 +14,7 @@ class UserSessions extends Model
        'ip'   => ['type'=>'string'],
     ];
     const RELATIONS = [
-    	'user'=>['type'=>'hasOne','model'=>'\App\Models\Users']
+    	'user'=>['type'=>'hasOne','model'=>'\App\Models\User']
     ];
 
 }

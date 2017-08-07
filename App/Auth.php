@@ -19,7 +19,7 @@ class Auth
     public static function authenticate($login, $password)
     {
     	$where = ['login=' => $login];
-    	$user = \App\Models\Users::whereOneElement($where);
+    	$user = \App\Models\User::whereOneElement($where);
     	if (self::verify($password, $user->password)){
     		return $user;
     	}

@@ -25,7 +25,7 @@ class Main extends Controller
 
     protected function actionAuth($data, $post)
     {
-        $session = \App\Auth::login($post['login'], $post['password']);
+        \App\Auth::login($post['login'], $post['password']);
         \App\Http::redirectPrevious();
     }
 

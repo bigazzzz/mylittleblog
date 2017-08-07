@@ -341,4 +341,27 @@ abstract class Model
         return $res;
     }
 
+    public static function create()
+    {
+        $db = Db::instance();
+        $sql = 'CREATE TABLE ' . static::TABLE . ' 
+                (id SERIAL NOT NULL, ';
+        foreach (static::COLUMNS as $k => $v) {
+            switch ($v['type']){
+                case 'text':
+                    $sql .= $k . ' TEXT NOT NULL, ';
+                    break;
+                case 'int':
+                    $sql .= $k . ' BIGINT(20) NOT NULL, ';
+                    break;
+                case 'string':
+                default:
+                    $sql .= $k . ' VARCHAR(512) NOT NULL, ';
+                    break;
+            }
+        }
+        $sql .= 'created_at TIMESTAMP NULL, modified_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP )';
+        return $db->execute($sql);
+    }
+
 }

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.15.7
--- http://www.phpmyadmin.net
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 07, 2017 at 05:07 PM
--- Server version: 5.7.13
--- PHP Version: 7.0.8
+-- Generation Time: Aug 07, 2017 at 09:45 PM
+-- Server version: 5.7.16
+-- PHP Version: 7.1.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -26,16 +26,16 @@ SET time_zone = "+00:00";
 -- Table structure for table `posts`
 --
 
-CREATE TABLE IF NOT EXISTS `posts` (
-  `id` int(11) NOT NULL,
+CREATE TABLE `posts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(255) NOT NULL,
   `intro_text` text,
   `full_text` text,
   `preview_image` varchar(255) DEFAULT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `posts`
@@ -61,9 +61,9 @@ INSERT INTO `posts` (`id`, `title`, `intro_text`, `full_text`, `preview_image`, 
 -- Table structure for table `tags`
 --
 
-CREATE TABLE IF NOT EXISTS `tags` (
-  `id` bigint(20) unsigned NOT NULL,
-  `name` varchar(100) NOT NULL,
+CREATE TABLE `tags` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -84,7 +84,8 @@ INSERT INTO `tags` (`id`, `name`, `created_at`, `modified_at`) VALUES
 -- Table structure for table `tags_to_posts`
 --
 
-CREATE TABLE IF NOT EXISTS `tags_to_posts` (
+CREATE TABLE `tags_to_posts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `post_id` bigint(20) NOT NULL,
   `tag_id` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -95,20 +96,20 @@ CREATE TABLE IF NOT EXISTS `tags_to_posts` (
 -- Dumping data for table `tags_to_posts`
 --
 
-INSERT INTO `tags_to_posts` (`post_id`, `tag_id`, `created_at`, `modified_at`) VALUES
-(8, 2, NULL, '2017-08-07 11:39:50'),
-(8, 3, NULL, '2017-08-07 11:39:50'),
-(9, 3, NULL, '2017-08-07 11:39:50'),
-(9, 2, NULL, '2017-08-07 11:39:50'),
-(10, 2, NULL, '2017-08-07 11:39:50'),
-(10, 3, NULL, '2017-08-07 11:39:50'),
-(11, 1, NULL, '2017-08-07 11:39:50'),
-(11, 3, NULL, '2017-08-07 11:39:50'),
-(1, 2, NULL, '2017-08-07 11:39:50'),
-(1, 3, NULL, '2017-08-07 11:39:50'),
-(2, 1, NULL, '2017-08-07 11:39:50'),
-(2, 3, NULL, '2017-08-07 11:39:50'),
-(3, 2, NULL, '2017-08-07 11:39:50');
+INSERT INTO `tags_to_posts` (`id`, `post_id`, `tag_id`, `created_at`, `modified_at`) VALUES
+(1, 8, 2, NULL, '2017-08-07 11:39:50'),
+(2, 8, 3, NULL, '2017-08-07 11:39:50'),
+(3, 9, 3, NULL, '2017-08-07 11:39:50'),
+(4, 9, 2, NULL, '2017-08-07 11:39:50'),
+(5, 10, 2, NULL, '2017-08-07 11:39:50'),
+(6, 10, 3, NULL, '2017-08-07 11:39:50'),
+(7, 11, 1, NULL, '2017-08-07 11:39:50'),
+(8, 11, 3, NULL, '2017-08-07 11:39:50'),
+(9, 1, 2, NULL, '2017-08-07 11:39:50'),
+(10, 1, 3, NULL, '2017-08-07 11:39:50'),
+(11, 2, 1, NULL, '2017-08-07 11:39:50'),
+(12, 2, 3, NULL, '2017-08-07 11:39:50'),
+(13, 3, 2, NULL, '2017-08-07 11:39:50');
 
 -- --------------------------------------------------------
 
@@ -116,14 +117,14 @@ INSERT INTO `tags_to_posts` (`post_id`, `tag_id`, `created_at`, `modified_at`) V
 -- Table structure for table `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` bigint(20) unsigned NOT NULL,
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `login` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
@@ -139,15 +140,23 @@ INSERT INTO `users` (`id`, `login`, `name`, `password`, `created_at`, `modified_
 -- Table structure for table `user_sessions`
 --
 
-CREATE TABLE IF NOT EXISTS `user_sessions` (
-  `id` bigint(20) unsigned NOT NULL,
+CREATE TABLE `user_sessions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) NOT NULL,
   `hash` varchar(512) NOT NULL,
   `ua` text NOT NULL,
   `ip` varchar(15) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user_sessions`
+--
+
+INSERT INTO `user_sessions` (`id`, `user_id`, `hash`, `ua`, `ip`, `created_at`, `modified_at`) VALUES
+(24, 1, 'b0044549920019a2fa6cab6fafaa172b8e3db30fb7c1d8313ea03d5d31b46c2c', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36', '127.0.0.1', '2017-08-07 18:20:15', '2017-08-07 18:20:15'),
+(26, 1, '6f9ec0fce3651101994c5b6d8aac4ea2e3541af46222003095ec9f13dea5a86d', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36', '127.0.0.1', '2017-08-07 18:23:53', '2017-08-07 18:23:53');
 
 --
 -- Indexes for dumped tables
@@ -158,7 +167,14 @@ CREATE TABLE IF NOT EXISTS `user_sessions` (
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `articles_id_uindex` (`id`);
+  ADD UNIQUE KEY `articles_id_uindex` (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `tags_to_posts`
+--
+ALTER TABLE `tags_to_posts`
+  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `users`
@@ -182,17 +198,22 @@ ALTER TABLE `user_sessions`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT for table `tags_to_posts`
+--
+ALTER TABLE `tags_to_posts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user_sessions`
 --
 ALTER TABLE `user_sessions`
-  MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

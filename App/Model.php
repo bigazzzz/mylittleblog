@@ -277,4 +277,14 @@ abstract class Model
         $start_record = ($page-1)*$record_per_page;
         return self::search($data, $start_record, $record_per_page);
     }
+
+    public static function searchOneElement($data)
+    {
+        $res = self::search($data);
+        if (is_array($res)){
+            return $res[0];
+        } else {
+            return $res;
+        }
+    }
 }

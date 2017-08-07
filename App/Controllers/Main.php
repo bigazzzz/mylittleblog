@@ -22,4 +22,8 @@ class Main extends Controller
         return $module->action('Index');
     }
 
+    protected function actionAuth($data, $post)
+    {
+        var_dump($_SESSION);
+    }
 }

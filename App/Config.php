@@ -7,12 +7,10 @@ class Config
 {
 
     use Singleton;
-    
-    private $config_file;
 
     public function __construct()
     {
-        $this->config_file = '../Profiles/' . ucfirst(PROFILE) . '/main.php';
+        $this->config_file = '../Profiles/' . ucfirst(PROFILE) . '.cfg.php';
         $this->data = require $this->config_file;
     }
 

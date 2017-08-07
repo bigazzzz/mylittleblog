@@ -18,7 +18,7 @@ class Auth
 
     public static function authenticate($login, $password)
     {
-    	$where = ['login' => $login];
+    	$where = ['login=' => $login];
     	$user = \App\Models\Users::whereOneElement($where);
     	if (self::verify($password, $user->password)){
     		return $user;
@@ -29,7 +29,7 @@ class Auth
     public static function user()
     {
     	$hash = $_COOKIE[\App\Config::instance()->cookie->name] ?? null;
-    	$session = \App\Models\UserSessions::whereOneElement(['hash' => $hash]);
+    	$session = \App\Models\UserSessions::whereOneElement(['hash=' => $hash]);
     	if (!is_null($session)){
 	    	return $session->user;
     	}
@@ -39,7 +39,7 @@ class Auth
     public static function logout()
     {
     	$hash = $_COOKIE[\App\Config::instance()->cookie->name] ?? null;
-    	$session = \App\Models\UserSessions::whereOneElement(['hash' => $hash]);
+    	$session = \App\Models\UserSessions::whereOneElement(['hash=' => $hash]);
     	if (!is_null($session)){
 	    	$session->delete();
 			setcookie(\App\Config::instance()->cookie->name, "", time()-10, "/");
@@ -50,11 +50,12 @@ class Auth
 
     public static function login($login, $password)
     {
-		$user = \App\Auth::authenticate($login, $password);
+		$user = self::authenticate($login, $password);
         if (false === $user){
             \App\Http::redirectPrevious();
             return false;
         }
+        self::garbageCollector();
         $session = new \App\Models\UserSessions;
         $session->user_id = $user->id;
         $session->hash = hash('sha256', microtime(true) . uniqid());
@@ -62,6 +63,14 @@ class Auth
         $session->ua = $_SERVER['HTTP_USER_AGENT'];
         $session->ip = $_SERVER['REMOTE_ADDR'];
         $session->save();
+    }
 
+    public static function garbageCollector()
+    {
+    	$time = time() - \App\Config::instance()->cookie->time;
+    	$oldSessions = \App\Models\UserSessions::where(['created_at <' => date('Y-m-d H:i:s',$time)]);
+    	foreach ($oldSessions as $session) {
+    		$session->delete();
+    	}
     }
 }

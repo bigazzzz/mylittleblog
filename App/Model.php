@@ -289,7 +289,7 @@ abstract class Model
         }
     }
 
-    public static function where($data = ['1' => '1'], int $start = 0, int $limit = 0)
+    public static function where($data = ['1=1'], int $start = 0, int $limit = 0)
     {
         $db = Db::instance();
         $sql = '
@@ -298,8 +298,9 @@ abstract class Model
             $sql .=  ' WHERE ';
             $values = [];
             foreach ($data as $k => $v) {
-                $values[':'.$k] = $v;
-                $sql .= $k . ' = :' . $k;
+                $key = rtrim($k, ' <>=');
+                $values[':'.$key] = $v;
+                $sql .= $k . ':' . $key;
                 $sql .= ' AND ';
             }
             $sql = substr($sql, 0, -5);
@@ -315,7 +316,7 @@ abstract class Model
         return $res;
     }
 
-    public static function whereOneElement($data)
+    public static function whereOneElement($data = ['1=1'])
     {
         $res = self::where($data);
         if (is_array($res)){

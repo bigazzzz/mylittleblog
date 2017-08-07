@@ -347,16 +347,23 @@ abstract class Model
         $sql = 'CREATE TABLE ' . static::TABLE . ' 
                 (id SERIAL NOT NULL, ';
         foreach (static::COLUMNS as $k => $v) {
+            if (isset($v['null'])){
+                $null_attr = (true === $v['null'])?'NULL':'NOT NULL';
+            } else {
+                $null_attr = 'NOT NULL';
+            }
             switch ($v['type']){
                 case 'text':
-                    $sql .= $k . ' TEXT NOT NULL, ';
+                    $sql .= $k . ' TEXT ' . $null_attr . ', ';
                     break;
                 case 'int':
-                    $sql .= $k . ' BIGINT(20) NOT NULL, ';
+                    $length = $v['length'] ?? 20;
+                    $sql .= $k . ' BIGINT(' . $length . ') ' . $null_attr . ', ';
                     break;
                 case 'string':
                 default:
-                    $sql .= $k . ' VARCHAR(512) NOT NULL, ';
+                    $length = $v['length'] ?? 255;
+                    $sql .= $k . ' VARCHAR(' . $length . ') ' . $null_attr . ', ';
                     break;
             }
         }

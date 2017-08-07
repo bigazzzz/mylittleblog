@@ -225,7 +225,6 @@ abstract class Model
         return strtolower(preg_replace('#.+\\\#', '', static::class)) . '_id';
     }
 
-
     private function getLinksModel($k)
     {
         if (class_exists($links_model = static::class . "_to_" . preg_replace('#.+\\\#', '', static::RELATIONS[$k]['model']))) return $links_model;
@@ -324,6 +323,22 @@ abstract class Model
         } else {
             return $res;
         }
+    }
+
+    public static function drop()
+    {
+        $db = Db::instance();
+        $sql = 'DROP TABLE ' . static::TABLE;
+        $res = $db->execute($sql);
+        return $res;
+    }
+
+    public static function empty()
+    {
+        $db = Db::instance();
+        $sql = 'TRUNCATE TABLE ' . static::TABLE;
+        $res = $db->execute($sql);
+        return $res;
     }
 
 }

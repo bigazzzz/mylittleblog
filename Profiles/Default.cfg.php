@@ -46,6 +46,7 @@ return array (
     '/posts/page/<1>' => '/Blog/PostsPage(page=<1>)',
     '/auth' => '/Main/Auth',
     '/logout' => '/Main/Logout',
+    '/login' => '/Main/Login',
   ),
 
 );

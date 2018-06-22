@@ -23,16 +23,20 @@ class Admin extends Controller
         $this->view->display('index');
     }
 
-    public static function actionModuleInstall($moduleName)
+    protected function actionModulesList()
+    {
+        $this->view->modules = \App\Modules::list();
+        $this->view->content = $this->view->render('Admin\Modules\list');
+        $this->view->display('index');
+    }
+
+    protected function actionModuleInstall($moduleName)
     {
     }
 
-    public static function actionModuleUninstall($moduleName)
+    protected function actionModuleUninstall($moduleName)
     {
     }
 
-    public static function actionModulesList()
-    {
-    }
 
 }

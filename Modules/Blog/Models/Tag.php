@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Models\Blog;
+namespace Modules\Blog;
 
 use App\Model;
 
@@ -12,6 +12,6 @@ class Tag extends Model
        'name'   => ['type'=>'string'],
     ];
     const RELATIONS = [
-        'posts'=>['type'=>'manyToMany','model'=>'\Modules\Models\Blog\Post']
+        'posts'=>['type'=>'manyToMany','model'=>'Models\Post']
     ];
 }

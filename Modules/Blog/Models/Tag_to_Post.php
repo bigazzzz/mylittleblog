@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Models\Blog;
+namespace Modules\Blog;
 
 use App\Model;
 

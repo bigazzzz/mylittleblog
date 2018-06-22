@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Controllers\Blog;
+namespace Modules\Blog;
 
 use App\Controller;
 use App\Config;
@@ -16,7 +16,7 @@ class Index extends \App\Controllers\Main
 
     protected function actionPost($data)
     {
-        $this->view->post = \Modules\Models\Blog\Post::findById($data['id']);
+        $this->view->post = Models\Post::findById($data['id']);
         $this->view->content = $this->view->render('Blog/post');
         $this->view->display('index');
     }
@@ -30,8 +30,8 @@ class Index extends \App\Controllers\Main
 
     protected function actionPostsPage($data)
     {
-        $this->view->posts = \Modules\Models\Blog\Post::page(null,$data['page'],Config::instance()->posts->count_on_start_page);
-        $this->view->pagination = new \App\Models\Pagination(\Modules\Models\Blog\Post::count(), Config::instance()->posts->count_on_start_page);
+        $this->view->posts = Models\Post::page(null,$data['page'],Config::instance()->posts->count_on_start_page);
+        $this->view->pagination = new \App\Models\Pagination(Models\Post::count(), Config::instance()->posts->count_on_start_page);
         $this->view->pagination->current = $data['page'];
         $this->view->pagination->url = '/posts/page';
         $this->view->content = $this->view->render('Blog/posts');
@@ -40,7 +40,7 @@ class Index extends \App\Controllers\Main
 
     protected function actionTag($data)
     {
-        $this->view->tag = \Modules\Models\Blog\tag::findById($data['id']);
+        $this->view->tag = Models\Tag::findById($data['id']);
         $this->view->content = $this->view->render('Blog/tag');
         $this->view->display('index');
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Models\Blog;
+namespace Modules\Blog;
 
 use App\Model;
 
@@ -16,8 +16,8 @@ class Post extends Model
        'preview_image' => ['type'=>'string'],
     ];
     const RELATIONS = [
-        'tags'=>['type'=>'manyToMany','model'=>'\Modules\Models\Blog\Tag'],
+        'tags'=>['type'=>'manyToMany','model'=>'Models\Tag'],
         'user'=>['type'=>'hasOne','model'=>'\App\Models\User']
     ];
- 
+
 }

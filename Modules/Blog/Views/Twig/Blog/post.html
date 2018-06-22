@@ -1,0 +1,6 @@
+<article>
+<h1>{{ post.title }}</h1>
+<p>{{ post.intro_text }}</p>
+<p>{{ post.full_text }}</p>
+<p>Создал <a href="/author/{{ post.user.id }}">{{ post.user.name }}</a> {{ post.modified_at|date}}</p>
+</article>

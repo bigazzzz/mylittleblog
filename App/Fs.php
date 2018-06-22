@@ -3,13 +3,13 @@ namespace App;
 
 class Fs
 {
-    public static function findFiles($mask = "*.*")
+    public static function findFiles($directory, $mask = "*.*")
     {
-        return glob($mask, GLOB_BRACE);
+        return glob($directory . "/" . $mask, GLOB_BRACE);
     }
 
-    public static function findDir($mask = "*.*")
+    public static function findDir($directory, $mask = "*")
     {
-        return glob($mask, GLOB_BRACE | GLOB_ONLYDIR);
+        return glob($directory . "/" . $mask, GLOB_BRACE | GLOB_ONLYDIR);
     }
 }

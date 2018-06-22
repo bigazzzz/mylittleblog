@@ -6,9 +6,9 @@ return array (
     'name' => 'слоган',
     'copyright' => 'Все права защищены',
     'publish_year' => '2017',
-    'meta' => 
+    'meta' =>
     array (
-      'name' => 
+      'name' =>
       array (
         'keywords' => 'сайт, мой первый сайт, тест',
         'author' => 'Автор',
@@ -47,6 +47,11 @@ return array (
     '/auth' => '/Main/Auth',
     '/logout' => '/Main/Logout',
     '/login' => '/Main/Login',
+    '/admin' => '/Admin/Index',
+    '/admin/modules' => '/Admin/ModulesList',
   ),
-
+  'dir' =>
+  array (
+    'modules' => 'Modules/Controllers',
+  ),
 );

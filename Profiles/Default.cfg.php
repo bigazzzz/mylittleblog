@@ -52,6 +52,6 @@ return array (
   ),
   'dir' =>
   array (
-    'modules' => 'Modules/Controllers',
+    'modules' => '/Modules/Controllers',
   ),
 );

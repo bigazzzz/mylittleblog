@@ -10,6 +10,6 @@ class Fs
 
     public static findDir($mask = "*.*")
     {
-            return glob($mask, GLOB_BRACE | GLOB_ONLYDIR);
+        return glob($mask, GLOB_BRACE | GLOB_ONLYDIR);
     }
 }

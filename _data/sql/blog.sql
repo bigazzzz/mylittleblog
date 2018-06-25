@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
+-- version 4.4.15.7
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 07, 2017 at 09:45 PM
--- Server version: 5.7.16
--- PHP Version: 7.1.0
+-- Generation Time: Jun 25, 2018 at 05:43 PM
+-- Server version: 5.5.50
+-- PHP Version: 7.0.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,11 +23,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `modules`
+--
+
+CREATE TABLE IF NOT EXISTS `modules` (
+  `id` bigint(20) unsigned NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `route_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `posts`
 --
 
-CREATE TABLE `posts` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `posts` (
+  `id` bigint(20) unsigned NOT NULL,
   `title` varchar(255) NOT NULL,
   `intro_text` text,
   `full_text` text,
@@ -35,7 +49,7 @@ CREATE TABLE `posts` (
   `user_id` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `posts`
@@ -58,11 +72,26 @@ INSERT INTO `posts` (`id`, `title`, `intro_text`, `full_text`, `preview_image`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `routes`
+--
+
+CREATE TABLE IF NOT EXISTS `routes` (
+  `id` bigint(20) unsigned NOT NULL,
+  `module_id` bigint(20) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `controller` varchar(255) NOT NULL,
+  `action` varchar(255) NOT NULL,
+  `args` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tags`
 --
 
-CREATE TABLE `tags` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `tags` (
+  `id` bigint(20) unsigned NOT NULL,
   `name` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -84,13 +113,13 @@ INSERT INTO `tags` (`id`, `name`, `created_at`, `modified_at`) VALUES
 -- Table structure for table `tags_to_posts`
 --
 
-CREATE TABLE `tags_to_posts` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `tags_to_posts` (
+  `id` bigint(20) unsigned NOT NULL,
   `post_id` bigint(20) NOT NULL,
   `tag_id` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tags_to_posts`
@@ -117,14 +146,14 @@ INSERT INTO `tags_to_posts` (`id`, `post_id`, `tag_id`, `created_at`, `modified_
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` bigint(20) unsigned NOT NULL,
   `login` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
@@ -140,15 +169,15 @@ INSERT INTO `users` (`id`, `login`, `name`, `password`, `created_at`, `modified_
 -- Table structure for table `user_sessions`
 --
 
-CREATE TABLE `user_sessions` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `user_sessions` (
+  `id` bigint(20) unsigned NOT NULL,
   `user_id` bigint(20) NOT NULL,
   `hash` varchar(512) NOT NULL,
   `ua` text NOT NULL,
   `ip` varchar(15) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user_sessions`
@@ -156,11 +185,18 @@ CREATE TABLE `user_sessions` (
 
 INSERT INTO `user_sessions` (`id`, `user_id`, `hash`, `ua`, `ip`, `created_at`, `modified_at`) VALUES
 (24, 1, 'b0044549920019a2fa6cab6fafaa172b8e3db30fb7c1d8313ea03d5d31b46c2c', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36', '127.0.0.1', '2017-08-07 18:20:15', '2017-08-07 18:20:15'),
-(26, 1, '6f9ec0fce3651101994c5b6d8aac4ea2e3541af46222003095ec9f13dea5a86d', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36', '127.0.0.1', '2017-08-07 18:23:53', '2017-08-07 18:23:53');
+(26, 1, '6f9ec0fce3651101994c5b6d8aac4ea2e3541af46222003095ec9f13dea5a86d', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36', '127.0.0.1', '2017-08-07 18:23:53', '2017-08-07 18:23:53'),
+(28, 1, 'f99504fe6ab43dc0a8e1d32fcc99441ad83175f7aa0a5dabcb6f7fb7f99ed870', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36', '127.0.0.1', '2018-06-21 14:30:46', '2018-06-21 14:30:46');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `modules`
+--
+ALTER TABLE `modules`
+  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `posts`
@@ -168,6 +204,12 @@ INSERT INTO `user_sessions` (`id`, `user_id`, `hash`, `ua`, `ip`, `created_at`, 
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `articles_id_uindex` (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `routes`
+--
+ALTER TABLE `routes`
   ADD UNIQUE KEY `id` (`id`);
 
 --
@@ -195,25 +237,35 @@ ALTER TABLE `user_sessions`
 --
 
 --
+-- AUTO_INCREMENT for table `modules`
+--
+ALTER TABLE `modules`
+  MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT for table `routes`
+--
+ALTER TABLE `routes`
+  MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tags_to_posts`
 --
 ALTER TABLE `tags_to_posts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user_sessions`
 --
 ALTER TABLE `user_sessions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

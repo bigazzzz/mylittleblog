@@ -1,0 +1,38 @@
+{
+  "name": "Blog",
+  "desc": "This is blog module",
+  "url": "/blog",
+  "index": "posts",
+  "routes": {
+    "posts": {
+      "controller": "Blog",
+      "action": "Index",
+      "args": null
+    },
+    "post/<1>": {
+      "controller": "Blog",
+      "action": "Post",
+      "args": "id=<1>"
+    },
+    "tag/<1>": {
+      "controller": "Blog",
+      "action": "Tag",
+      "args": "id=<1>"
+    },
+    "author/<1>": {
+      "controller": "Blog",
+      "action": "Author",
+      "args": "id=<1>"
+    },
+    "author/<1>/<2>": {
+      "controller": "Blog",
+      "action": "Author",
+      "args": "id=<1>, url=<2>"
+    },
+    "posts/page/<1>": {
+      "controller": "Blog",
+      "action": "Page",
+      "args": "page=<1>"
+    }
+  }
+}
